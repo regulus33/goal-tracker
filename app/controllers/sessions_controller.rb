@@ -4,6 +4,7 @@ class SessionsController < ApplicationController
 	end
 
 	def create 
+		binding.pry
 		user = User.find_by(email: params[:email])
 		if user.is_password?(params[:password])
 			session[:user_id] = user.id
@@ -23,6 +24,4 @@ class SessionsController < ApplicationController
 	def session_params
 		params.require(:session).permit(:email, :password)
 	end
-
-
 end

@@ -1,2 +1,15 @@
-<h1>Create a new Task!</h1>
+<div class="text-center">
+<h1>New Task</h1>
+	<%= form_for(@task) do |f| %>
+		<%= f.label :name  %>
+		<%= f.text_field :name  %>
+		<%= f.label :email  %>
+		<%= f.text_field :email  %>
+		<%= f.label :password %>
+		<%= f.text_field :password %>
+		<%= f.submit "join us" %>
+	<% end %>
+
+	<p>Already have an account?<p> <a href="/login">Log in here</a>
+</div><
 

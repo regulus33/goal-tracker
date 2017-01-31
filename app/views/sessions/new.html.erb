@@ -1,9 +1,13 @@
-<h1>Login</h1>
+<div class="text-center">
+	<h1>Login</h1>
 
-<%= form_tag '/login' do %>
+	<%= form_tag '/login' do %>
 
-  Email: <%= text_field_tag :email %>
-  Password: <%= password_field_tag :password %>
-  <%= submit_tag "Submit" %>
+	  Email: <%= text_field_tag :email %>
+	  Password: <%= password_field_tag :password %>
+	  <%= submit_tag "Submit" %>
 
-<% end %>
+	<% end %>
+	<p>Don't have an account yet?</p><a href="/">Sign Up!</a>
+</div>
+
