@@ -1,0 +1,12 @@
+<h1>Your Tasks</h1>
+
+<% if current_user.tasks %>
+	<ul>
+	<% current_user.tasks.each do |task| %>
+	 <li><h2><%=task.name %></h2></li>
+	 <% end %>
+	</ul>	
+
+<% else %>
+<h1>Looks like you haven't created any tasks, create one <a href="">here</a></h1>
+<% end  %>

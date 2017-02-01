@@ -4,14 +4,13 @@ class SessionsController < ApplicationController
 	end
 
 	def create 
-		binding.pry
 		user = User.find_by(email: params[:email])
 		if user.is_password?(params[:password])
 			session[:user_id] = user.id
 		else 
 			flash[:notice] = "Hmm, who the heck r u?"
 		end
-		redirect_to '/'
+		redirect_to '/tasks'
 	end
 
 	def destroy
