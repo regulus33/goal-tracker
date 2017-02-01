@@ -1,12 +1,20 @@
-<h1>Your Tasks</h1>
-
+<div class="text-center">
+<h1><%=current_user.username%>'s Tasks</h1>
 <% if current_user.tasks %>
 	<ul>
 	<% current_user.tasks.each do |task| %>
 	 <li><h2><%=task.name %></h2></li>
+	 <!-- newest due date will always be last -->
+	 <li>Due Date: <%=task.due_dates.last.date%></li>
+	 <!-- newest completion will always be last -->
+	 <li>Completed: <%=task.completions.last.completed%></li>
+	  <li>Completion Value(how complete): <%=task.completions.last.completion_value%></li>
+	  <li>Completion Max(how much we need to compete): <%=task.completion_max%></li>
+	  <li>Completion Unit(how we measure): <%=task.completion_unit%></li>
 	 <% end %>
 	</ul>	
 
 <% else %>
 <h1>Looks like you haven't created any tasks, create one <a href="">here</a></h1>
 <% end  %>
+</div>
