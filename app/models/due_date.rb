@@ -1,3 +1,3 @@
 class DueDate < ApplicationRecord
-	has_many :task_due_dates
+	belongs_to :task
 end

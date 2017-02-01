@@ -25,22 +25,19 @@ ActiveRecord::Schema.define(version: 20170126050227) do
 
   create_table "due_dates", force: :cascade do |t|
     t.datetime "date"
+    t.integer  "task_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "task_due_dates", force: :cascade do |t|
-    t.integer  "task_id"
-    t.integer  "due_dates_id"
-    t.datetime "created_at",   null: false
-    t.datetime "updated_at",   null: false
   end
 
   create_table "tasks", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.integer  "completion_max"
+    t.string   "completion_unit"
+    t.string   "term"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "users", force: :cascade do |t|
