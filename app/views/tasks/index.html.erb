@@ -12,9 +12,10 @@
 	  <li>Completion Max(how much we need to compete): <%=task.completion_max%></li>
 	  <li>Completion Unit(how we measure): <%=task.completion_unit%></li>
 	 <% end %>
+	 <a href="/tasks/new">New Task</a>
 	</ul>	
 
 <% else %>
-<h1>Looks like you haven't created any tasks, create one <a href="">here</a></h1>
+<h1>Looks like you haven't created any tasks, create one <a href="/tasks/new">here</a></h1>
 <% end  %>
 </div>
