@@ -10,12 +10,13 @@ class TasksController < ApplicationController
 	end 
  
 	def create 
-		
+		binding.pry
+
     end 
 
     private 
 
-	def session_params
-		params.require(:session).permit(:email, :password)
+	def task_params
+		params.require(:task).permit(:name, :due_date => [{:date}])
 	end 
 end
