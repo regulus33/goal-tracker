@@ -10,13 +10,15 @@ class TasksController < ApplicationController
 	end 
  
 	def create 
-		binding.pry
-
+	  task = Task.new(name: task_params[:name])
+	  due_date = DueDate.new(date: task_params[:due_date][0][:date])
+	  task.due_dates << due_date
+	  current_user.tasks << task
     end 
 
     private 
 
 	def task_params
-		params.require(:task).permit(:name, :due_date => [{:date}])
+		params.require(:task).permit!
 	end 
 end
