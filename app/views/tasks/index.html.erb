@@ -6,11 +6,15 @@
 	 <li><h2><%=task.name %></h2></li>
 	 <!-- newest due date will always be last -->
 	 <li>Due Date: <%=task.due_dates.last.date%></li>
+	 <% if task.completions.any? %>
 	 <!-- newest completion will always be last -->
 	 <li>Completed: <%=task.completions.last.completed%></li>
 	  <li>Completion Value(how complete): <%=task.completions.last.completion_value%></li>
-	  <li>Completion Max(how much we need to compete): <%=task.completion_max%></li>
+	  <li>Completion Max(how much we need to complete): <%=task.completion_max%></li>
 	  <li>Completion Unit(how we measure): <%=task.completion_unit%></li>
+	  <% else %>
+	  <h1>This task has no completion Data.</h1>
+	  <% end %>
 	 <% end %>
 	 <a href="/tasks/new">New Task</a>
 	</ul>	

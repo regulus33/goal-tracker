@@ -10,10 +10,11 @@ class TasksController < ApplicationController
 	end 
  
 	def create 
-	  task = Task.new(name: task_params[:name])
-	  due_date = DueDate.new(date: task_params[:due_date][0][:date])
-	  task.due_dates << due_date
-	  current_user.tasks << task
+	  task = Task.new(name: task_params[:name])#create a task
+	  due_date = DueDate.new(date: task_params[:due_date][0][:date])#create a task
+	  task.due_dates << due_date#create a task
+	  current_user.tasks << task#create a task
+	  completion = Completion.new(completion: 0, completion_value: params[:completion_value])
 	  
     end 
 
