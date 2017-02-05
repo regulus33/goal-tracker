@@ -13,7 +13,16 @@
   <% @task.due_dates.each do |due_date| %>
     <%= task_form.fields_for due_date, index: due_date.id do |due_date_form|%>
       <%= due_date_form.label :date %>
-      <%= due_date_form.text_field :date %>
+      <%= due_date_form.date_field(:date) %>
+      <% end %>
+    <% end %>
+    <% @task.completions.each do |completion| %>
+    
+      <%= task_form.fields_for completion, index: completion.id do |completion_form|%>
+      <%= completion_form.label :completion_value %>
+      <%= completion_form.text_field :completion_value %>
+      <%= completion_form.label :completed %>
+      <%= completion_form.text_field :completed %>
     <% end %>
   <% end %>
   <%= task_form.submit %>

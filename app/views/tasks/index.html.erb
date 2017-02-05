@@ -8,7 +8,8 @@
 	 <li>Due Date: <%=task.due_dates.last.date%></li>
 	 <% if task.completions.any? %>
 	 <!-- newest completion will always be last -->
-	 <li>Completed: <%=task.completions.last.completed%></li>
+
+	  <li>Completed: <%=task.completions.last.completed%></li>
 	  <li>Completion Value(how complete): <%=task.completions.last.completion_value%></li>
 	  <li>Completion Max(how much we need to complete): <%=task.completion_max%></li>
 	  <li>Completion Unit(how we measure): <%=task.completion_unit%></li>
