@@ -14,6 +14,7 @@ class TasksController < ApplicationController
 	  due_date = DueDate.new(date: task_params[:due_date][0][:date])
 	  task.due_dates << due_date
 	  current_user.tasks << task
+	  
     end 
 
     private 

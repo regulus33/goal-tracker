@@ -4,6 +4,12 @@
 <%= form_for @task do |task_form| %>
   <%= task_form.label :name %>
   <%= task_form.text_field :name %>
+   <%= task_form.label :completion_unit %>
+  <%= task_form.text_field :completion_unit %>
+   <%= task_form.label :completion_max %>
+  <%= task_form.text_field :completion_max %>
+   <%= task_form.label :term %>
+  <%= task_form.text_field :term %>
   <% @task.due_dates.each do |due_date| %>
     <%= task_form.fields_for due_date, index: due_date.id do |due_date_form|%>
       <%= due_date_form.label :date %>
