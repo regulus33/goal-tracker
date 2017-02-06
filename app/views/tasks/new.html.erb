@@ -1,46 +1,47 @@
-<div class="text-center">
-<h1>New Task</h1>
-<%= form_for @task do |task_form| %>
-<div class="stack">
-  <%= task_form.label :name %>
-  <%= task_form.text_field :name, class: "form-control" %>
-</div>
-<div class="stack form-group">
-  <%= task_form.label :completion_unit %>
-  <%= task_form.select :completion_unit, ['none','minutes','hours','miles', 'reps'], class: "form-control"%>
-</div>
-<div class="stack form-group">
-  <%= task_form.label :completion_max %>
-  <%= task_form.number_field :completion_max, in: 1.0..10000.0 %>
-</div>
-<div class="stack form-group">
-  <%= task_form.label :term %>
-  <%= task_form.select :term, ['none','hourly','daily', 'weekly', 'monthly'], class: "form-control"%>
-</div>
-  <% @task.due_dates.each do |due_date| %>
-    <%= task_form.fields_for due_date, index: due_date.id do |due_date_form|%>
-    <div class="stack form-group">
-      <%= due_date_form.label :date %>
-      <%= due_date_form.date_field :date, class: "form-control" %>
-      <% end %>
-    <% end %>
-    </div>
-    <% @task.completions.each do |completion| %>
-      <%= task_form.fields_for completion, index: completion.id do |completion_form|%>
-     <div class="stack form-group">
-      <%= completion_form.label :completion_value %>
-      <%= completion_form.number_field :completion_value, in: 1.0..10000.0 %>
-     </div>
+<div class="jumbotron">
+  <div class="form-group text-center row">
+  <h1>New Task</h1>
+    <%= form_for @task do |task_form| %>
       <div class="stack form-group">
-      <%= completion_form.label :completed %>
-      <%= completion_form.select :completed, ['false', 'true'], class: "form-control"%>
+        <%= task_form.label :name %>
+        <%= task_form.text_field :name, class: "col-2 col-form-label" %>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :completion_unit %>
+        <%= task_form.select :completion_unit, ['none','minutes','hours','miles', 'reps'], class: "col-2 col-form-label"%>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :completion_max %>
+        <%= task_form.number_field :completion_max, in: 1.0..10000.0 %>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :term %>
+        <%= task_form.select :term, ['none','hourly','daily', 'weekly', 'monthly'], class: "col-2 col-form-label"%>
+      </div>
+      <% @task.due_dates.each do |due_date| %>
+        <%= task_form.fields_for due_date, index: due_date.id do |due_date_form|%>
+        <div class="stack form-group">
+          <%= due_date_form.label :date %>
+          <%= due_date_form.date_field :date, class: "col-2 col-form-label" %>
+          <% end %>
+        <% end %>
+      </div>
+      <% @task.completions.each do |completion| %>
+        <%= task_form.fields_for completion, index: completion.id do |completion_form|%>
+        <div class="stack form-group">
+          <%= completion_form.label :completion_value %>
+          <%= completion_form.number_field :completion_value, in: 1.0..10000.0 %>
+        </div>
+        <div class="stack form-group">
+          <%= completion_form.label :completed %>
+          <%= completion_form.select :completed, ['false', 'true'], class: "col-2 col-form-label"%>
+        </div>
+        <% end %>
+      <% end %>
+      <div class="stack form-group">
+        <%= task_form.submit class: "btn btn-primary" %>
       </div>
     <% end %>
-  <% end %>
-  <div class="stack form-group">
-  <%= task_form.submit %>
   </div>
-<% end %>
-	<div>Already have an account?<p> <a href="/login">Log in here</a>
 </div>
 

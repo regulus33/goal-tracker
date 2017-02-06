@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20170126050227) do
   create_table "tasks", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "name"
+    t.text     "description"
     t.integer  "completion_max"
     t.string   "completion_unit"
     t.string   "term"
