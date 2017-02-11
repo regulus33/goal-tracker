@@ -8,6 +8,10 @@ class TasksController < ApplicationController
 	  render :partial => "/index/indextoday"
 	end
 
+	def this_week
+		render :partial => "/index/indexthisweek"
+	end
+
 	def new
 		@task = Task.new 
 		@task.due_dates.build 

@@ -8,5 +8,6 @@ Rails.application.routes.draw do
 	get '/logout', to: "sessions#destroy"
 	get '/tasks/today', to: "tasks#today"
 	get 'sortday', to: "tasks#today"
+	get 'sortweek', to: "tasks#this_week"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

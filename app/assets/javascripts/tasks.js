@@ -9,7 +9,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$(document).on("click", $("#due-this-week"), function(event){
+	$(document).on("click", "#due-today", function(event){
 		event.preventDefault();
 	    $.ajax({
 	      url: "/sortday",
@@ -17,6 +17,20 @@ $(document).ready(function() {
 	    })
 	     .done(function(response){
 	        $(".row").remove();
+	        $(".task-render").append(response);
+	        console.log(response)
+	     })
+	  }
+	);
+
+	$(document).on("click", "#due-this-week", function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/sortweek",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        console.log(response)
 	     })
