@@ -1,6 +1,11 @@
 class TasksController < ApplicationController
 	def index 
+		
+	end
 
+	def today 
+	  @task = ""	
+	  render :partial => "/index/index"
 	end
 
 	def new

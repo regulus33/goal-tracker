@@ -10,7 +10,6 @@ class User < ApplicationRecord
   def is_password?(password)
     true
   end
-
   # uncommment for working authentication and delete above method
   # def password=(password)
   #   self.password_digest = BCrypt::Password.create(password)

@@ -1,6 +1,4 @@
 $(document).ready(function() {
-	console.log("running")
-	// $("#due-date").css({"visibility":"hidden" })
 	$termSelect = $('#task_term').find(":selected").text();
 	$('#task_term').change(function(){
 		if($(this).find(":selected").text() == "never"){
@@ -10,5 +8,17 @@ $(document).ready(function() {
 			$("#due-date").css({"visibility":"hidden" });	
 		}
 	});
+
+	$(document).on("click", $("#due-this-week"), function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/sortday",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	        console.log(response);
+	     })
+	  }
+	);
 
 });
