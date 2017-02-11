@@ -12,8 +12,11 @@ class User < ApplicationRecord
   end
 
   def tasks_due_today
-    binding.pry
     self.tasks.select {|task| task.due_today?}
+  end
+
+  def tasks_due_this_week
+    self.tasks.select {|task| task.due_this_way?}
   end
   # uncommment for working authentication and delete above method
   # def password=(password)

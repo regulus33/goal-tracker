@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
 	def today 
 	  @task = ""	
-	  render :partial => "/index/index"
+	  render :partial => "/index/indextoday"
 	end
 
 	def new

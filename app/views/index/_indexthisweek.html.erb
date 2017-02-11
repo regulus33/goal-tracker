@@ -1,0 +1,29 @@
+<div class="row tasks">
+	<% if current_user.tasks %>
+		<% current_user.tasks_due_today.each do |task| %>
+			<div class="col-md-4 task-container text-center">
+		 		<p><h2><%=task.name %></h2></p>
+				<p>Due Date: <%=task.due_dates.last.date%></p>
+				<p>Description : <%=task.description%></p> 
+				<p>Term : <%=task.term%></p> 
+				<p>Completion Unit : <%=task.completion_unit%></p> 
+				<% if task.completions.any? %>
+					<p>
+					  <% if task.completions.last.completed == 0 %>
+					  Completed: No!
+					  <% else %>
+					  Completed: Yes! Congrats.
+					  <% end %>
+					</p>
+					<p>Completion Value(how complete): <%=task.completions.last.completion_value%></p>
+					<p>Completion Max(how much we need to complete): <%=task.completion_max%></p>
+					<p>Completion Unit(how we measure): <%=task.completion_unit%></p>
+				<% else %>
+					<h1>This task has no completion Data.</h1>
+				<% end %>
+			</div>	
+		<% end %>
+	<% else %>
+		<h1>Looks like you haven't created any tasks, create one <a href="/tasks/new">here</a></h1>
+	<% end  %>
+</div>
