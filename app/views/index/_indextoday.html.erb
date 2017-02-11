@@ -1,7 +1,9 @@
 <div class="row tasks">
+  <div id="canvas"></div>
 	<% if current_user.tasks %>
 		<% current_user.tasks_due_today.each do |task| %>
 			<div class="col-md-4 task-container text-center">
+			  <div id="task-<%= task.id %>">
 		 		<p><h2><%=task.name %></h2></p>
 				<p>Due Date: <%=task.due_dates.last.date%></p>
 				<p>Description : <%=task.description%></p> 
@@ -21,6 +23,7 @@
 				<% else %>
 					<h1>This task has no completion Data.</h1>
 				<% end %>
+			  </div>
 			</div>	
 		<% end %>
 	<% else %>

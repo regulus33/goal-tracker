@@ -43,9 +43,21 @@ class TasksController < ApplicationController
 		redirect_to '/tasks'
 	end 
 
+	def complete
+		task = Task.find_by(id: complete_params[:id])
+		completion = task.completions.last
+		completion.completed = 1 
+		completion.save! 
+		render :partial => "/graphics/completed"
+	end
+
 	private 
 
 	def task_params
 		params.require(:task).permit!
+	end 
+
+	def complete_params
+		params.permit(:id)
 	end 
 end

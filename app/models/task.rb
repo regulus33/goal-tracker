@@ -15,7 +15,7 @@ class Task < ApplicationRecord
 		if due_array[0] == today_array[0] && due_array[2] == today_array[2]
 			return true if due_array[1].to_i - today_array[1].to_i <= 7 
 		end
-		#if sep months 
+		#if separate months 
 		if ( due_array[0]-1 ) == today_array[0] || ( due_array[0]+1 ) == today_array[0]
 			this_month_days = self.due_dates.first.days_in_month
 			todays_date_number = today_array[1].to_i 

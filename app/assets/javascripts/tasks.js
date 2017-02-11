@@ -8,7 +8,7 @@ $(document).ready(function() {
 			$("#due-date").css({"visibility":"hidden" });	
 		}
 	});
-
+    //sort by day
 	$(document).on("click", "#due-today", function(event){
 		event.preventDefault();
 	    $.ajax({
@@ -22,7 +22,7 @@ $(document).ready(function() {
 	     })
 	  }
 	);
-
+    //sort by week
 	$(document).on("click", "#due-this-week", function(event){
 		event.preventDefault();
 	    $.ajax({
@@ -33,6 +33,23 @@ $(document).ready(function() {
 	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        console.log(response)
+	     })
+	  }
+	);
+    //complete a task
+	$(document).on("click", "a.complete", function(event){
+		event.preventDefault();
+		task_id = $(this).attr("id")
+		that = $(this).parent()
+	    $.ajax({
+	      url: ("/complete/" + task_id),
+	      method: 'put'
+	    })
+	     .done(function(response){
+	        console.log(response)
+	      $(("div" + "#task-" + task_id)).remove()
+	      $(("div" + "#task-window-" + task_id)).append(response)
+
 	     })
 	  }
 	);
