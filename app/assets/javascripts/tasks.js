@@ -47,47 +47,48 @@ $(document).ready(function() {
 	    })
 	     .done(function(response){
 		      console.log(response)
-		      $(("div" + "#task-" + task_id)).remove()
-		      $(("#task-window-" + task_id)).append(response)
-		      graphic();
+		      $(("div" + "#task-" + task_id)).css({"visibility": "hidden"});
+		      // $(("#task-window-" + task_id)).append(response)
+		      info = document.createElement( 'div' );
+				info.style.position = 'absolute';
+				info.style.top = '30px';
+				info.style.width = '100%';
+				info.style.height = '100%';
+				info.style.textAlign = 'center';
+				info.style.color = '#f00';
+				info.style.backgroundColor = 'transparent';
+				info.style.zIndex = '1';
+				info.style.fontFamily = 'Monospace';
+				info.style.userSelect = "none";
+				info.style.webkitUserSelect = "none";
+				info.style.MozUserSelect = "none";
+				info.innerHTML = "TESET"
+				info.setAttribute("id", "graphic-" + task_id);
+				// document.body.appendChild( info );
+				$(("#task-window-" + task_id)).append(info);
+		        graphic(task_id);
 	     })
 	  }
 	);
 
 });
 
-function graphic(){
+function graphic(divIdNums){
 
 	var container, camera, scene, renderer, mesh,
 
-	    mouse = { x: 0, y: 0 },
-	    objects = [],
-	    
-	    count = 0,
+    mouse = { x: 0, y: 0 },
+    objects = [],
+    
+    count = 0,
 
-	    CANVAS_WIDTH = 200,
-	    CANVAS_HEIGHT = 200;
+    // container = document.getElementById( 'canvas' );
+    container = document.getElementById( 'graphic-' + divIdNums );
+    CANVAS_WIDTH = container.offsetWidth,
+    CANVAS_HEIGHT = container.offsetHeight;
 
-	// info
-	info = document.createElement( 'div' );
-	info.style.position = 'absolute';
-	info.style.top = '30px';
-	info.style.width = '100%';
-	info.style.textAlign = 'center';
-	info.style.color = '#f00';
-	info.style.backgroundColor = 'transparent';
-	info.style.zIndex = '1';
-	info.style.fontFamily = 'Monospace';
-	info.innerHTML = 'INTERSECT Count: ' + count;
-	info.style.userSelect = "none";
-	info.style.webkitUserSelect = "none";
-	info.style.MozUserSelect = "none";
-	document.body.appendChild( info );
 
-	container = document.getElementById( 'canvas' );
-	// document.body.appendChild( container );
-
-	renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer();
 	renderer.setSize( CANVAS_WIDTH, CANVAS_HEIGHT );
 	container.appendChild( renderer.domElement );
 
@@ -104,21 +105,13 @@ function graphic(){
 	) );
 	scene.add( mesh );
 	objects.push( mesh );
-
 	// find intersections
 	var vector = new THREE.Vector3();
 	var raycaster = new THREE.Raycaster();
-
-	// mouse listener
+    // mouse listener
 	document.addEventListener( 'mousedown', function( event ) {
-	    
-	    // For the following method to work correctly, set the canvas position *static*; margin > 0 and padding > 0 are OK
 	    mouse.x = ( ( event.clientX - renderer.domElement.offsetLeft ) / renderer.domElement.width ) * 2 - 1;
 	    mouse.y = - ( ( event.clientY - renderer.domElement.offsetTop ) / renderer.domElement.height ) * 2 + 1;
-	    
-	    // For this alternate method, set the canvas position *fixed*; set top > 0, set left > 0; padding must be 0; margin > 0 is OK
-	    //mouse.x = ( ( event.clientX - container.offsetLeft ) / container.clientWidth ) * 2 - 1;
-	    //mouse.y = - ( ( event.clientY - container.offsetTop ) / container.clientHeight ) * 2 + 1;
 
 	    vector.set( mouse.x, mouse.y, 0.5 );
 	    vector.unproject( camera );
@@ -127,13 +120,16 @@ function graphic(){
 
 	    intersects = raycaster.intersectObjects( objects );
 
-	    if ( intersects.length > 0 ) {
-	        
-	        info.innerHTML = 'INTERSECT Count: ' + ++count;
-	        
-	    }
 
 	}, false );
+
+	// window.addEventListener('resize', onWindowResize, false);
+ //        function onWindowResize() {
+ //          camera.aspect = window.innerWidth / window.innerHeight;
+ //          camera.updateProjectionMatrix();
+ //          renderer.setSize(window.innerWidth, window.innerHeight);
+ //        }
+       
 
 	function render() {
 
