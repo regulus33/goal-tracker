@@ -20,10 +20,10 @@
       </div>
       <div class="stack form-group">
         <%= task_form.label :How_often_should_this_task_recur? %>
-        <%= task_form.select :term, ['never','hourly','daily', 'weekly', 'monthly'], class: "col-2 col-form-label"%>
+        <%= task_form.select :term, ['hourly','daily', 'weekly', 'monthly', 'never'], class: "col-2 col-form-label"%>
       </div>
       <% @task.due_dates.each do |due_date| %>
-        <div class="stack form-group">
+        <div id="due-date" class="stack form-group">
         <%= task_form.fields_for due_date, index: due_date.id do |due_date_form|%>
           <%= due_date_form.label :date %>
           <%= due_date_form.date_field :date, class: "col-2 col-form-label" %>
