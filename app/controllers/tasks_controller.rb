@@ -15,14 +15,20 @@ class TasksController < ApplicationController
 		 completion_max: task_params[:completion_max].to_i,
          description: task_params[:description],
 	     completion_unit:task_params[:completion_unit],
-	      term: task_params[:term]
+	     term: task_params[:term]
 	      )
-		due_date = DueDate.new(date: DateTime.parse(task_params[:due_date][0][:date]))
-		task.due_dates << due_date
+		unless task_params[:due_date][0][:date] == ""
+			due_date = DueDate.new(date: DateTime.parse(task_params[:due_date][0][:date]))
+			task.due_dates << due_date
+		    due_date.save!
+		else
+		    due_date = DueDate.new(date: DateTime.parse(Time.now.to_s))
+		    task.due_dates << due_date
+		    due_date.save!
+		end
 		current_user.tasks << task
 		completion = Completion.new(completed: task_params[:completed].to_i, completion_value: task_params[:completion_value].to_i)
 		task.completions << completion
-		due_date.save!
 		completion.save!
 		task.save!
 		redirect_to '/tasks'
