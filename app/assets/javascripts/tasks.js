@@ -46,25 +46,22 @@ $(document).ready(function() {
 	      method: 'put'
 	    })
 	     .done(function(response){
-		      console.log(response)
 		      $(("div" + "#task-" + task_id)).css({"visibility": "hidden"});
-		      // $(("#task-window-" + task_id)).append(response)
-		      info = document.createElement( 'div' );
+		        info = document.createElement( 'div' );
 				info.style.position = 'absolute';
-				info.style.top = '30px';
-				info.style.width = '100%';
-				info.style.height = '100%';
+				info.style.padding = '7px';
+				info.style.top = '-7px';
+				info.style.width = ($(("#task-window-" + task_id)).width()/1.2).toString() + 'px'
+				info.style.height = ($(("#task-window-" + task_id)).height()/1.2).toString() + 'px' 
 				info.style.textAlign = 'center';
 				info.style.color = '#f00';
 				info.style.backgroundColor = 'transparent';
-				info.style.zIndex = '1';
 				info.style.fontFamily = 'Monospace';
 				info.style.userSelect = "none";
 				info.style.webkitUserSelect = "none";
 				info.style.MozUserSelect = "none";
-				info.innerHTML = "TESET"
+				info.innerHTML = "COMPLETE"
 				info.setAttribute("id", "graphic-" + task_id);
-				// document.body.appendChild( info );
 				$(("#task-window-" + task_id)).append(info);
 		        graphic(task_id);
 	     })
