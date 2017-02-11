@@ -32,43 +32,46 @@ $(document).ready(function() {
 	     .done(function(response){
 	     	$(".row").remove();
 	        $(".task-render").append(response);
-	        console.log(response)
 	     })
 	  }
 	);
     //complete a task
 	$(document).on("click", "a.complete", function(event){
 		event.preventDefault();
-		task_id = $(this).attr("id")
-		that = $(this).parent()
+		task_id = $(this).attr("id");
+		that = $(this).parent();
 	    $.ajax({
 	      url: ("/complete/" + task_id),
 	      method: 'put'
 	    })
 	     .done(function(response){
-		      $(("div" + "#task-" + task_id)).css({"visibility": "hidden"});
-		        info = document.createElement( 'div' );
-				info.style.position = 'absolute';
-				info.style.padding = '7px';
-				info.style.top = '-7px';
-				info.style.width = ($(("#task-window-" + task_id)).width()/1.2).toString() + 'px'
-				info.style.height = ($(("#task-window-" + task_id)).height()/1.2).toString() + 'px' 
-				info.style.textAlign = 'center';
-				info.style.color = '#f00';
-				info.style.backgroundColor = 'transparent';
-				info.style.fontFamily = 'Monospace';
-				info.style.userSelect = "none";
-				info.style.webkitUserSelect = "none";
-				info.style.MozUserSelect = "none";
-				info.innerHTML = "COMPLETE"
-				info.setAttribute("id", "graphic-" + task_id);
-				$(("#task-window-" + task_id)).append(info);
-		        graphic(task_id);
+		 	$(("div" + "#task-" + task_id)).css({"visibility": "hidden"});
+		    makeDiv(task_id);
+		    graphic(task_id);
 	     })
 	  }
 	);
 
 });
+
+function makeDiv(task_id){
+	info = document.createElement( 'div' );
+	info.style.position = 'absolute';
+	info.style.padding = '7px';
+	info.style.top = '-7px';
+	info.style.width = ($(("#task-window-" + task_id)).width()/1.2).toString() + 'px'
+	info.style.height = ($(("#task-window-" + task_id)).height()/1.2).toString() + 'px' 
+	info.style.textAlign = 'center';
+	info.style.color = '#f00';
+	info.style.backgroundColor = 'transparent';
+	info.style.fontFamily = 'Monospace';
+	info.style.userSelect = "none";
+	info.style.webkitUserSelect = "none";
+	info.style.MozUserSelect = "none";
+	info.innerHTML = "COMPLETE";
+	info.setAttribute("id", "graphic-" + task_id);
+	$(("#task-window-" + task_id)).append(info);
+}
 
 function graphic(divIdNums){
 
@@ -80,7 +83,7 @@ function graphic(divIdNums){
     count = 0,
 
     // container = document.getElementById( 'canvas' );
-    container = document.getElementById( 'graphic-' + divIdNums );
+    container = document.getElementById( 'graphic-' + divIdNums );//newly created div
     CANVAS_WIDTH = container.offsetWidth,
     CANVAS_HEIGHT = container.offsetHeight;
 
@@ -125,7 +128,7 @@ function graphic(divIdNums){
  //          camera.aspect = window.innerWidth / window.innerHeight;
  //          camera.updateProjectionMatrix();
  //          renderer.setSize(window.innerWidth, window.innerHeight);
- //        }
+ //    }
        
 
 	function render() {
