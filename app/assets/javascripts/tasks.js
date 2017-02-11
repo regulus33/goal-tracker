@@ -32,7 +32,7 @@ $(document).ready(function() {
 	     .done(function(response){
 	     	$(".row").remove();
 	        $(".task-render").append(response);
-	     })
+	    })
 	  }
 	);
     //complete a task
@@ -45,8 +45,13 @@ $(document).ready(function() {
 	      method: 'put'
 	    })
 	     .done(function(response){
-		 	$(("div" + "#task-" + task_id)).css({"visibility": "hidden"});
-		    makeDiv(task_id);
+	     	dimensions = {
+	     		height : $(("div" + "#task-" + task_id)).height(),
+	     		width  : $(("div" + "#task-" + task_id)).width()
+			};
+	     		debugger
+		 	$(("div" + "#task-" + task_id)).remove();
+		    makeDiv(task_id, dimensions);
 		    graphic(task_id);
 	     })
 	  }
@@ -54,13 +59,11 @@ $(document).ready(function() {
 
 });
 
-function makeDiv(task_id){
+function makeDiv(task_id, dimensions){
 	info = document.createElement( 'div' );
-	info.style.position = 'absolute';
-	info.style.padding = '7px';
-	info.style.top = '-7px';
-	info.style.width = ($(("#task-window-" + task_id)).width()/1.2).toString() + 'px'
-	info.style.height = ($(("#task-window-" + task_id)).height()/1.2).toString() + 'px' 
+	info.style.position = 'relative';
+	info.style.width = dimensions.height + 'px'
+	info.style.height = dimensions.width + 'px' 
 	info.style.textAlign = 'center';
 	info.style.color = '#f00';
 	info.style.backgroundColor = 'transparent';
@@ -68,7 +71,7 @@ function makeDiv(task_id){
 	info.style.userSelect = "none";
 	info.style.webkitUserSelect = "none";
 	info.style.MozUserSelect = "none";
-	info.innerHTML = "COMPLETE";
+	// info.innerHTML = "COMPLETE";
 	info.setAttribute("id", "graphic-" + task_id);
 	$(("#task-window-" + task_id)).append(info);
 }
@@ -123,12 +126,12 @@ function graphic(divIdNums){
 
 	}, false );
 
-	// window.addEventListener('resize', onWindowResize, false);
- //        function onWindowResize() {
- //          camera.aspect = window.innerWidth / window.innerHeight;
- //          camera.updateProjectionMatrix();
- //          renderer.setSize(window.innerWidth, window.innerHeight);
- //    }
+	window.addEventListener('resize', onWindowResize, false);
+        function onWindowResize() {
+          camera.aspect = (container.offsetWidth / container.offsetHeight)
+          camera.updateProjectionMatrix();
+          renderer.setSize(container.offsetWidth, container.offsetHeight);
+    }
        
 
 	function render() {
