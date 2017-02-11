@@ -49,10 +49,11 @@ $(document).ready(function() {
 	     		height : $(("div" + "#task-" + task_id)).height(),
 	     		width  : $(("div" + "#task-" + task_id)).width()
 			};
-	     		debugger
 		 	$(("div" + "#task-" + task_id)).remove();
-		    makeDiv(task_id, dimensions);
+		    $fadeDiv = makeDiv(task_id, dimensions);
 		    graphic(task_id);
+		    $fadeDiv.parent().fadeOut(1000);
+		    $fadeDiv.fadeOut(1000);
 	     })
 	  }
 	);
@@ -74,6 +75,7 @@ function makeDiv(task_id, dimensions){
 	// info.innerHTML = "COMPLETE";
 	info.setAttribute("id", "graphic-" + task_id);
 	$(("#task-window-" + task_id)).append(info);
+	return $(info)
 }
 
 function graphic(divIdNums){
