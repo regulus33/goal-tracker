@@ -8,6 +8,6 @@ class Task < ApplicationRecord
 	end
 
 	def due_this_week?
-		
+
 	end
 end
