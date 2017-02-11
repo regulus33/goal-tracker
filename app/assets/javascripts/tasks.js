@@ -16,7 +16,9 @@ $(document).ready(function() {
 	      method: 'get'
 	    })
 	     .done(function(response){
-	        console.log(response);
+	        $(".row").remove();
+	        $(".task-render").append(response);
+	        console.log(response)
 	     })
 	  }
 	);

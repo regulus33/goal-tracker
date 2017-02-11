@@ -10,6 +10,10 @@ class User < ApplicationRecord
   def is_password?(password)
     true
   end
+
+  def tasks_due_today
+    self.tasks.select {|task| tas.due_today}
+  end
   # uncommment for working authentication and delete above method
   # def password=(password)
   #   self.password_digest = BCrypt::Password.create(password)
