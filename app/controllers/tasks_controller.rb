@@ -51,6 +51,12 @@ class TasksController < ApplicationController
 		render :partial => "/graphics/completed"
 	end
 
+	def complete_tasks_index 
+		binding.pry
+		@complete_tasks = current_user.tasks.each{|task| task.completions.select {|completion| completion.completed == 1}}
+		render :partial => '/index/complete_index', :locals => {tasks: @complete_tasks} 
+	end 
+
 	private 
 
 	def task_params

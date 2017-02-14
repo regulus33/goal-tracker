@@ -8,8 +8,9 @@ Rails.application.routes.draw do
 	post '/login', to: "sessions#create"
 	get '/logout', to: "sessions#destroy"
 	get '/tasks/today', to: "tasks#today"
-	get 'sortday', to: "tasks#today"
-	get 'sortweek', to: "tasks#this_week"
-	put 'complete/:id', to: "tasks#complete"
+	get '/sortday', to: "tasks#today"
+	get '/sortweek', to: "tasks#this_week"
+	put '/complete/:id', to: "tasks#complete" #edit request for tasks to be completed, all tasks are initiated with completions	
+	get '/completeindex', to: "tasks#complete_tasks_index" #index page for completed tasks
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
