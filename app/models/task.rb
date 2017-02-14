@@ -28,15 +28,15 @@ class Task < ApplicationRecord
 	end
 
 	def make_new_completion
-	  if task is recurring hourly && today is 1 hour away from last completion 
-	    completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)  
-	  elsif task is recurring daily && today is 1 day away from last completion 
-	    completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max) 
-	  elsif task is recurring weekly && today is one week away from last completion 
-	    completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)
-	   elsif task is recurring monthly && today is one month away from last completion 
-	    completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max) 
-	  end
+	  # if task is recurring hourly && today is 1 hour away from last completion 
+	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)  
+	  # elsif task is recurring daily && today is 1 day away from last completion 
+	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max) 
+	  # elsif task is recurring weekly && today is one week away from last completion 
+	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)
+	  #  elsif task is recurring monthly && today is one month away from last completion 
+	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max) 
+	  # end
 	end
 
 	def been_one_hour 
