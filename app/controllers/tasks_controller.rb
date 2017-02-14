@@ -52,9 +52,10 @@ class TasksController < ApplicationController
 	end
 
 	def complete_tasks_index 
-		binding.pry
-		@complete_tasks = current_user.tasks.each{|task| task.completions.select {|completion| completion.completed == 1}}
-		render :partial => '/index/complete_index', :locals => {tasks: @complete_tasks} 
+		@complete_tasks = current_user.tasks.select do 
+			|task| task.completions.last.completed == 1 
+		end 
+		render :partial => '/index/complete_index', :locals => {complete_tasks: @complete_tasks} 
 	end 
 
 	private 

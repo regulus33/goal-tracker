@@ -1,14 +1,6 @@
-<h1>complete index</h1>
-
-<% tasks.each do |task| %>
-  <p><%= task.name %></p>
-  <p><%= task.description %></p>
-<% end %>
-
-
 	<div class="row tasks">
-		<% if current_user.tasks %>
-			<% current_user.tasks_due_this_week.each do |task| %>
+		<% if complete_tasks %>
+			<% complete_tasks.each do |task| %>
 				<div id="task-window-<%= task.id %>" class="col-md-4 task-container text-center">
 				   <div id="task-<%= task.id %>">
 			 		<p><h2><%=task.name %></h2></p>

@@ -36,7 +36,7 @@ $(document).ready(function() {
 	  }
 	);
     //sort by completed
-	$(document).on("click", "#completed-all", function(event){
+	$(document).on("click", "a#completed-all", function(event){
 		event.preventDefault();
 	    $.ajax({
 	      url: "/completeindex",
