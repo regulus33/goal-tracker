@@ -35,6 +35,19 @@ $(document).ready(function() {
 	    })
 	  }
 	);
+    //sort by completed
+	$(document).on("click", "#completed-all", function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/completeindex",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	$(".row").remove();
+	        $(".task-render").append(response);
+	    })
+	  }
+	);
     //complete a task
 	$(document).on("click", "a.complete", function(event){
 		event.preventDefault();
