@@ -46,7 +46,7 @@ class TasksController < ApplicationController
 	def complete
 		task = Task.find_by(id: complete_params[:id])
 		completion = task.completions.last
-		completion.completed = 1 
+		completion.complete
 		completion.save! 
 		render :partial => "/graphics/completed"
 	end

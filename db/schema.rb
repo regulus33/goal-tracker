@@ -19,6 +19,7 @@ ActiveRecord::Schema.define(version: 20170126050227) do
     t.integer  "task_id"
     t.integer  "completed"
     t.integer  "completion_value"
+    t.datetime "completed_at"
     t.datetime "created_at",       null: false
     t.datetime "updated_at",       null: false
   end
