@@ -4,7 +4,7 @@ class CreateDueDates < ActiveRecord::Migration[5.0]
     create_table :due_dates do |t|
    		t.datetime :date
    		t.integer :task_id
-      t.timestamps
+        t.timestamps
     end
   end
 end
