@@ -1,4 +1,7 @@
 class Task < ApplicationRecord
+	SECONDS_IN_AN_HOUR = 3600
+	SECONDS_IN_A_DAY = SECONDS_IN_AN_HOUR * 24
+	SECONDS_IN_A_WEEK = SECONDS_IN_A_DAY * 7
 	belongs_to :user
 	has_many :completions
 	has_many :due_dates
@@ -27,7 +30,7 @@ class Task < ApplicationRecord
 		false 
 	end
 
-	def make_new_completion
+	def generate_new_due_date
 	  # if task is recurring hourly && today is 1 hour away from last completion 
 	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)  
 	  # elsif task is recurring daily && today is 1 day away from last completion 
@@ -39,16 +42,19 @@ class Task < ApplicationRecord
 	  # end
 	end
 
-	def been_one_hour 
-
+	def been_one_hour #since last completion
+		return true if (DateTime.now.to_i - self.completions.completed_at.to_i) >= (SECONDS_IN_AN_HOUR)
+		false 
     end 
 
     def been_one_day 
-		
+		return true if (DateTime.now.to_i - self.completions.completed_at.to_i) >= (SECONDS_IN_A_DAY)
+		false
     end     
 
     def been_one_week 
-		
+		return true if (DateTime.now.to_i - self.completions.completed_at.to_i) >= (SECONDS_IN_A_WEEK)
+		false
     end 
 
     def been_one_month 
