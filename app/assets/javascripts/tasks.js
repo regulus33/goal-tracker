@@ -70,8 +70,38 @@ $(document).ready(function() {
 	     })
 	  }
 	);
-
+	updateTasks();
 });
+
+function updateTasks() {
+
+    //send a request to the server. If the server says that a task has been updated in the last 
+    // hour, then we must call one of our partial display methods above, make sure to wrap them in their own 
+    // functions
+    $.ajax({
+    	url: "/checkupdate",
+	    method: 'get'
+    }).done(function(taskStatus){
+    	console.log(taskStatus.updated)
+    	if (taskStatus.updated === "true"){
+    	  $.ajax({
+	      url: "/sortweek",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	// $("h1.text-center").text("New Tasks!")
+	     	$(".row").remove();
+	        $(".task-render").append(response);
+	    })
+
+    	}
+
+    });
+  	
+
+    // Sets a timer that calls the updateTask function 1x a minute
+    setTimeout(function () { updateTasks(); }, 10000);   
+}
 
 function makeDiv(task_id, dimensions){
 	info = document.createElement( 'div' );

@@ -58,6 +58,21 @@ class TasksController < ApplicationController
 		render :partial => '/index/complete_index', :locals => {complete_tasks: @complete_tasks} 
 	end 
 
+	def updated_recently
+		if Task.all.find {|task| updated_in_the_last_hour?(task.completions.last.updated_at)}
+			@task_status = {updated: "true"}
+			render json: @task_status
+		else 
+		  	@task_status = {updated: "false"}
+		  	render json: @task_status
+		end 
+	end 
+
+	def updated_in_the_last_hour?(updated_at)
+		return true if (DateTime.now.to_i - updated_at.to_i) <= (Task::SECONDS_IN_AN_HOUR)
+		false 
+	end 
+
 	private 
 
 	def task_params

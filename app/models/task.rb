@@ -56,6 +56,8 @@ class Task < ApplicationRecord
 	  # end
 	end
 
+	private 
+
 	def been_5_seconds? #since last completion
 		return true if (DateTime.now.to_i - self.completions.last.completed_at.to_i) >= (5)
 		false 
