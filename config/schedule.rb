@@ -5,16 +5,20 @@
 
 # Example:
 #
-# set :output, "/path/to/my/cron_log.log"
-#
+set :output, "/cron_log.log"
+
+def task_gen
+
+end
+
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
 #   runner "MyModel.some_method"
 #   rake "some:great:rake:task"
 # end
-#
-# every 4.days do
-#   runner "AnotherModel.prune_old_records"
-# end
+
+every 1.minutes do
+  runner "Task.all.to_a.each{|task| task.generate_new_completion}"
+end
 
 # Learn more: http://github.com/javan/whenever
