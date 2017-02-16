@@ -9,6 +9,7 @@ class Task < ApplicationRecord
 	has_many :due_dates
 
 	def due_today?
+
 		return true if self.due_dates.first.date.strftime('%F') == Time.now.strftime('%F') && self.completions.last.completed == 0
 		false 
 	end
