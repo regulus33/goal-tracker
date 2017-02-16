@@ -37,6 +37,7 @@ class Task < ApplicationRecord
 	end
 
 	def generate_new_completion
+		Rails.logger.debug '===========whenever is working================'
 		if been_5_seconds?
 			completion = Completion.new(completed: 0, completion_value: self.completions.last.completion_value)
 			self.completions << completion
