@@ -108,6 +108,23 @@ function drawD3Pie(){
 	    {   label: "Jennifer",
 	        value: 50}
 	]
+    //this will come in as an argument and we'll pass these
+    //to d3 as data, basically how complete we are with tasks due today as one chart
+    //and how complete we are with tasks due this week as another
+	// var taskArray = [
+	//     {   taskName: "Daily Meditation",
+	//         total: 500,
+	//         value: 75 },
+	//     {   taskName: "Running",
+	//         total: 500,	
+	//         value: 50},
+	//     {   taskName: "Algorithm Practive",
+	//         total: 500,	
+	//         value: 25},
+	//     {   taskName: "Apply to 5 Jobs"
+	// ]
+
+
 
 	var pie = d3.layout.pie()
 	    .value(function(d) {
