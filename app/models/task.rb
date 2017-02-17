@@ -9,7 +9,6 @@ class Task < ApplicationRecord
 	has_many :due_dates
 
 	def due_today?
-
 		return true if self.due_dates.first.date.strftime('%F') == Time.now.strftime('%F') && self.completions.last.completed == 0
 		false 
 	end
@@ -37,14 +36,12 @@ class Task < ApplicationRecord
 	end
 
 	def generate_new_completion
-		Rails.logger.debug '===========whenever is working================'
+		# test
 		if been_5_seconds?
 			completion = Completion.new(completed: 0, completion_value: self.completions.last.completion_value)
 			self.completions << completion
 			completion.save!
-			# self.due_dates
 		end
-
 	  # if task is recurring hourly && today is 1 hour away from last completion 
 	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)  
 	  # elsif task is recurring daily && today is 1 day away from last completion 

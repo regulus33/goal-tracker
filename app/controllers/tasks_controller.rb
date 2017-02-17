@@ -73,6 +73,10 @@ class TasksController < ApplicationController
 		false 
 	end 
 
+	def show_progress 
+		render :partial => '/index/progress', :locals => {test: "test"} 
+	end 
+
 	private 
 
 	def task_params
