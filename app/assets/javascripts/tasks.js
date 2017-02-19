@@ -48,11 +48,25 @@ $(document).ready(function() {
 	    })
 	  }
 	);
-	//show progress chart 
+	//show progress chart for today
 	$(document).on("click", "a#show-progress", function(event){
 		event.preventDefault();
 	    $.ajax({
 	      url: "/showprogress",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	$(".row").remove();
+	        $(".task-render").append(response);
+	        drawD3Pie();
+	    })
+	  }
+	);
+	//show progress chart for this week
+	$(document).on("click", "a#show-week-progress", function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/showprogressweek",
 	      method: 'get'
 	    })
 	     .done(function(response){

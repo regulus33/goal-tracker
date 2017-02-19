@@ -21,7 +21,7 @@ class Task < ApplicationRecord
 	end
 
 	def due_this_week?
-		return true if due_today?
+		# return true if due_today?
 			due_array = self.due_dates.last.date.strftime('%m/%d/%y').split("/")
 			today_array = Time.now.strftime('%m/%d/%y').split("/")
 			# if in the same month
