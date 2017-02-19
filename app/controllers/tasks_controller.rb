@@ -69,10 +69,7 @@ class TasksController < ApplicationController
 	end
 
 	def complete_tasks_index 
-		@complete_tasks = current_user.tasks.select do 
-			|task| task.completions.last.completed == 1 
-		end 
-		render :partial => '/index/complete_index', :locals => {complete_tasks: @complete_tasks} 
+		render :partial => '/index/complete_index', :locals => {complete_tasks: current_user.completed_tasks} 
 	end 
 
 	def updated_recently
@@ -91,7 +88,7 @@ class TasksController < ApplicationController
 	end 
 
 	def show_progress 
-		render :partial => '/index/progress', :locals => {test: "test"} 
+		render :partial => '/index/progress', :locals => {data: data} 
 	end 
 
 	private 

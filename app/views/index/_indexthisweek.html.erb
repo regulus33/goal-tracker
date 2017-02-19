@@ -21,6 +21,15 @@
 						<p>Completion Max(how much we need to complete): <%=task.completion_max%></p>
 						<p>Completion Unit(how we measure): <%=task.completion_unit%></p>
 						<a id="<%= task.id %>" class="btn-primary complete">U COMPLETE ME</a>
+						<!-- slide scale input -->
+						<form method="post" action="/updatecompletion/<%= task.id %>">
+							<input class="slider" name="task[completion_value]" type="range" min="0" max="<%= task.completion_max%>" value="0" step="1"  />
+							<span class="range">0</span>
+							<input name="_method" type="hidden" value="put" />
+							<input type="submit" value="submit">
+						    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+						</form>
+						<!-- slide scale input above -->
 					<% else %>
 						<h1>This task has no completion Data.</h1>
 					<% end %>
