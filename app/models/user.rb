@@ -43,8 +43,8 @@ class User < ApplicationRecord
 
   def task_completion_ratio_of_this_week
     total_value = tasks_due_this_week.count
-    completed_value = total_completions_value(tasks_due_this_week)
-    ratio = [{label: "total", value: total_value}, {label: "completed", value: completed_value}]
+    incomplete_value = total_value - completed_value
+    ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end 
 
   def task_completion_ratio_of_all_time
