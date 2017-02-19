@@ -9,14 +9,13 @@ class Task < ApplicationRecord
 	has_many :due_dates
 
 	def due_today?
-		return true if self.due_dates.first.date.strftime('%F') == Time.now.strftime('%F') && self.completions.last.completed == 0
+		return true if self.due_dates.last.date.strftime('%F') == Time.now.strftime('%F') 
 		false 
 	end
 
 	def due_this_week?
 		return true if due_today?
-		if self.completions.last.completed == 0
-			due_array = self.due_dates.first.date.strftime('%m/%d/%y').split("/")
+			due_array = self.due_dates.last.date.strftime('%m/%d/%y').split("/")
 			today_array = Time.now.strftime('%m/%d/%y').split("/")
 			# if in the same month
 			if due_array[0] == today_array[0] && due_array[2] == today_array[2]
@@ -24,14 +23,13 @@ class Task < ApplicationRecord
 			end
 			#if separate months 
 			if ( due_array[0]-1 ) == today_array[0] || ( due_array[0]+1 ) == today_array[0]
-				this_month_days = self.due_dates.first.days_in_month
+				this_month_days = self.due_dates.last.days_in_month
 				todays_date_number = today_array[1].to_i 
 				due_date_number = due_array[1].to_i 
 				if (this_month_days - todays_date_number) + due_date_number <= 7
 					return true
 				end
 			end
-		end 
 		false 
 	end
 

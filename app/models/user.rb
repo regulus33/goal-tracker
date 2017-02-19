@@ -26,9 +26,13 @@ class User < ApplicationRecord
     self.tasks.select {|task| task.due_this_week?}
   end
 
+  def tasks_completed_today
+    tasks_due_today.select{ |task| task.completions.last.completed == 1}
+  end
+
   def task_completion_ratio_of_today
     total_value = tasks_due_today.count
-    completed_value = self.tasks.select{ |task| task.completions.last.completed == 1}.count
+    completed_value = tasks_completed_today.count
     incomplete_value = total_value - completed_value
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end 
