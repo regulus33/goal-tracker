@@ -14,5 +14,6 @@ Rails.application.routes.draw do
 	get '/completeindex', to: "tasks#complete_tasks_index" #index page for completed tasks
 	get '/checkupdate', to: "tasks#updated_recently" 
 	get '/showprogress', to: "tasks#show_progress"
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+    put '/updatecompletion/:id', to: "tasks#update_completion"
+    # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

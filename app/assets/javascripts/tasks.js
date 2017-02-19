@@ -84,6 +84,12 @@ $(document).ready(function() {
 	     })
 	  }
 	);
+	// task slider 
+	$(document).on("input change", "input.slider", function() {
+
+      val = $(this).val()
+      $(this).siblings().first().text(val)
+    })
 	// updateTasks();
 });
 

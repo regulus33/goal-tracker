@@ -43,6 +43,23 @@ class TasksController < ApplicationController
 		redirect_to '/tasks'
 	end 
 
+	def edit 
+	end 
+
+	def update
+
+	end 
+
+	def destroy 
+	end 
+
+	def update_completion
+	   	task = Task.find_by(id: complete_params[:id])
+		completion = task.completions.last
+		completion.completion_value = task_params[:completion_value].to_i
+		completion.save! 
+	end 
+
 	def complete
 		task = Task.find_by(id: complete_params[:id])
 		completion = task.completions.last

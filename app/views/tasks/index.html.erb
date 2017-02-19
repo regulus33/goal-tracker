@@ -1,9 +1,3 @@
-<script type="text/javascript">
-$(document).on("input change", "input.slider", function() {
-    val = $(this).val()
-    $(this).siblings().first().text(val)
-})
-</script>
 <div class="container">
   <ul>
   	<a id="due-today"><li>Due Today</li></a>
@@ -37,11 +31,12 @@ $(document).on("input change", "input.slider", function() {
 						<p>Completion Unit(how we measure): <%=task.completion_unit%></p>
 						<a id="<%= task.id %>" class="btn-primary complete">U COMPLETE ME</a>
 						<!-- slide scale input -->
-						<form method="post" action="/tasks/<%= task.id %>">
-							<input class="slider" type="range" min="0" max="<%= task.completion_max%>" value="0" step="1"  />
+						<form method="post" action="/updatecompletion/<%= task.id %>">
+							<input class="slider" name="task[completion_value]" type="range" min="0" max="<%= task.completion_max%>" value="0" step="1"  />
 							<span class="range">0</span>
 							<input name="_method" type="hidden" value="put" />
 							<input type="submit" value="submit">
+						    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 						</form>
 						<!-- slide scale input above -->
 					<% else %>
