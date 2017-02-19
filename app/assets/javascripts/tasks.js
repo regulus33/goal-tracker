@@ -76,6 +76,20 @@ $(document).ready(function() {
 	    })
 	  }
 	);
+	//show progress chart for all time
+	$(document).on("click", "a#show-all-progress", function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/showprogressall",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	$(".row").remove();
+	        $(".task-render").append(response);
+	        drawD3Pie();
+	    })
+	  }
+	);
     //complete a task
 	$(document).on("click", "a.complete", function(event){
 		event.preventDefault();

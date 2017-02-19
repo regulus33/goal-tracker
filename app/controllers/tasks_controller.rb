@@ -96,7 +96,12 @@ class TasksController < ApplicationController
 	def show_progress_week 
 		ratio = current_user.task_completion_ratio_of_this_week
 		render :partial => '/index/progress', :locals => {ratio: ratio.to_json} 
-	end 
+	end
+
+    def show_progress_all 
+		ratio = current_user.task_completion_ratio_of_all_time
+		render :partial => '/index/progress', :locals => {ratio: ratio.to_json} 
+	end  
 
 
 	private 
