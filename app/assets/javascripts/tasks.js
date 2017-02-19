@@ -48,7 +48,7 @@ $(document).ready(function() {
 	    })
 	  }
 	);
-	//show progress
+	//show progress chart 
 	$(document).on("click", "a#show-progress", function(event){
 		event.preventDefault();
 	    $.ajax({
