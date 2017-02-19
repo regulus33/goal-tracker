@@ -8,6 +8,13 @@ class Task < ApplicationRecord
 	has_many :completions
 	has_many :due_dates
 
+	def clean_self 
+		if self.completion_unit == "none"
+			self.completion_max = 1
+		 	self.save 
+		end 
+	end
+
 	def due_today?
 		return true if self.due_dates.last.date.strftime('%F') == Time.now.strftime('%F') 
 		false 

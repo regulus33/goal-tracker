@@ -39,7 +39,8 @@ class TasksController < ApplicationController
 		completion = Completion.new(completed: task_params[:completed].to_i, completion_value: task_params[:completion_value].to_i)
 		task.completions << completion
 		completion.save!
-		task.save!
+		task.save!2
+		task.clean_self
 		redirect_to '/tasks'
 	end 
 

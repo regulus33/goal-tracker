@@ -5,6 +5,6 @@ class Completion < ApplicationRecord
 		self.completed_at = DateTime.now
 		self.completion_value = self.task.completion_max
 		self.completed = 1 
-		self.save 
+		self.save! 
 	end  
 end

@@ -29,19 +29,22 @@ class User < ApplicationRecord
   def tasks_completed_today
     tasks_due_today.select{ |task| task.completions.last.completed == 1}
   end
-
+  # here we get the value of things as far as their completion value goes, not their potential
   def total_completions_value(tasks)
-    tasks.map {|task| task.completions.last.completion_value}.reduce(:+)
+    tasks.map do |task| 
+      task.completions.last.completion_value.to_f / task.completion_max.to_f 
+    end.reduce(:+) #should continuosly return a decimal number between zero and one
   end
-
+  # we need to get the total values that NEED to be completed aka the total-potential completion values
   def total_possible_completions_value(tasks)
     tasks.map {|task| task.completion_max}.reduce(:+)
   end
-
+ 
   def task_completion_ratio_of_today
-    total_value = total_possible_completions_value(tasks_due_today)
-    completed_value = total_completions_value(tasks_completed_today)
+    total_value = tasks_due_today.count
+    completed_value = total_completions_value(tasks_due_today)
     incomplete_value = total_value - completed_value
+    binding.pry
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end 
 
