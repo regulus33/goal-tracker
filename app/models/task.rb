@@ -21,23 +21,8 @@ class Task < ApplicationRecord
 	end
 
 	def due_this_week?
-		# return true if due_today?
-			due_array = self.due_dates.last.date.strftime('%m/%d/%y').split("/")
-			today_array = Time.now.strftime('%m/%d/%y').split("/")
-			# if in the same month
-			if due_array[0] == today_array[0] && due_array[2] == today_array[2]
-				return true if due_array[1].to_i - today_array[1].to_i <= 7 
-			end
-			#if separate months 
-			if ( due_array[0]-1 ) == today_array[0] || ( due_array[0]+1 ) == today_array[0]
-				this_month_days = self.due_dates.last.days_in_month
-				todays_date_number = today_array[1].to_i 
-				due_date_number = due_array[1].to_i 
-				if (this_month_days - todays_date_number) + due_date_number <= 7
-					return true
-				end
-			end
-		false 
+	  return true if DateTime.now.to_i - self.due_dates.last.date.to_i <= SECONDS_IN_A_WEEK
+	  false
 	end
 
 	def generate_new_completion
@@ -79,11 +64,4 @@ class Task < ApplicationRecord
 		return true if (DateTime.now.to_i - self.completions.last.completed_at.to_i) >= (SECONDS_IN_A_WEEK)
 		false
     end 
-
-    def been_one_month? 
-		
-    end
-
-
-
 end
