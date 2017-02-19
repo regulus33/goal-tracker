@@ -27,7 +27,7 @@ class Task < ApplicationRecord
 
 	def generate_new_completion
 		# test
-		if been_5_seconds?
+		if been_one_day?
 			completion = Completion.new(completed: 0, completion_value: self.completions.last.completion_value)
 			self.completions << completion
 			completion.save!
