@@ -30,9 +30,17 @@ class User < ApplicationRecord
     tasks_due_today.select{ |task| task.completions.last.completed == 1}
   end
 
+  def total_completions_value(tasks)
+    tasks.map {|task| task.completions.last.completion_value}.reduce(:+)
+  end
+
+  def total_possible_completions_value(tasks)
+    tasks.map {|task| task.completion_max}.reduce(:+)
+  end
+
   def task_completion_ratio_of_today
-    total_value = tasks_due_today.count
-    completed_value = tasks_completed_today.count
+    total_value = total_possible_completions_value(tasks_due_today)
+    completed_value = total_completions_value(tasks_completed_today)
     incomplete_value = total_value - completed_value
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end 
