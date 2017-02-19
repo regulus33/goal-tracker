@@ -12,8 +12,9 @@ class User < ApplicationRecord
   end
 
   def completed_tasks
-      self.tasks.select do 
-      |task| task.completions.last.completed == 1 
+      self.tasks.select do |task| 
+        # binding.pry
+        task.completions.last.completed == 1 
     end 
   end 
 
@@ -26,15 +27,20 @@ class User < ApplicationRecord
   end
 
   def task_completion_ratio_of_today
-    x = self.tasks.select do |task| 
-      task.due_dates.select do |due_date|
-        due_date.date.strftime('%m/%d/%y') == DateTime.now.strftime('%m/%d/%y')
-      end 
-    end 
+    total_value = tasks_due_today.count
+    completed_value = self.tasks.select{ |task| task.completions.last.completed == 1}.count
+    incomplete_value = total_value - completed_value
+    ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
+  end 
+
+  def task_completion_ratio_of_this_week
+    total_value = tasks_due_today.count
+    completed_value = self.tasks.select{ |task| task.completions.last.completed == 1}.count
+    ratio = [{label: "total", value: total_value}, {label: "completed", value: completed_value}]
+  end 
     # we need total tasks due this week and total tasks complete
     # we need total tasks that were/are due today or a given day and how many of THOSE are complete 
-    x
-  end 
+ 
   # uncommment for working authentication and delete above method
   # def password=(password)
   #   self.password_digest = BCrypt::Password.create(password)

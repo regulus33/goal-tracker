@@ -99,39 +99,22 @@ function drawD3Pie(){
     radius = 200
     colors = d3.scale.ordinal()
         .range(['#595AB7','#A57706','#D11C24','#C61C6F','#BD3613','#2176C7','#259286','#738A05']);
-
-	var piedata = [
-	    {   label: "Barot",
-	        value: 50 },
-	    {   label: "Gerard",
-	        value: 50},
-	    {   label: "Jonathan",
-	        value: 50},
-	    {   label: "Lorenzo",
-	        value: 50},
-	    {   label: "Hillary",
-	        value: 50},
-	    {   label: "Jennifer",
-	        value: 50}
-	]
-    //this will come in as an argument and we'll pass these
-    //to d3 as data, basically how complete we are with tasks due today as one chart
-    //and how complete we are with tasks due this week as another
-	// var taskArray = [
-	//     {   taskName: "Daily Meditation",
-	//         total: 500,
-	//         value: 75 },
-	//     {   taskName: "Running",
-	//         total: 500,	
+    var ratio = jQuery.parseJSON($("#chart").attr("data-row")); //returns an array of JSONs like the commented out
+    //'piedata' below
+	// var piedata = [
+	//     {   label: "Barot",
+	//         value: 50 },
+	//     {   label: "Gerard",
 	//         value: 50},
-	//     {   taskName: "Algorithm Practive",
-	//         total: 500,	
-	//         value: 25},
-	//     {   taskName: "Apply to 5 Jobs"
+	//     {   label: "Jonathan",
+	//         value: 50},
+	//     {   label: "Lorenzo",
+	//         value: 50},
+	//     {   label: "Hillary",
+	//         value: 50},
+	//     {   label: "Jennifer",
+	//         value: 50}
 	// ]
-
-
-
 	var pie = d3.layout.pie()
 	    .value(function(d) {
 	        return d.value;
@@ -145,7 +128,7 @@ function drawD3Pie(){
 	    .attr('height', height)
 	    .append('g')
 	    .attr('transform', 'translate('+(width-radius)+','+(height-radius)+')')
-	    .selectAll('path').data(pie(piedata))
+	    .selectAll('path').data(pie(ratio))
 	    .enter().append('g')
 	        .attr('class', 'slice')
 
@@ -171,7 +154,6 @@ function drawD3Pie(){
 }
 
 function updateTasks() {
-
     //send a request to the server. If the server says that a task has been updated in the last 
     // hour, then we must call one of our partial display methods above, make sure to wrap them in their own 
     // functions
@@ -190,13 +172,10 @@ function updateTasks() {
 	     	$(".row").remove();
 	        $(".task-render").append(response);
 	    })
-
-    	}
+    	}//is this a bug?
 
     });
-  	
-
-    // Sets a timer that calls the updateTask function 1x a minute
+  	    // Sets a timer that calls the updateTask function 1x a minute
     setTimeout(function () { updateTasks(); }, 10000);   
 }
 
