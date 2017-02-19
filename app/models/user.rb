@@ -44,7 +44,6 @@ class User < ApplicationRecord
     total_value = tasks_due_today.count
     completed_value = total_completions_value(tasks_due_today)
     incomplete_value = total_value - completed_value
-    binding.pry
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end 
 
