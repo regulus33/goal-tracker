@@ -25,30 +25,23 @@ class Task < ApplicationRecord
 	  false
 	end
 
-	def generate_new_completion
-		# test
-		if been_one_day?
-			completion = Completion.new(completed: 0, completion_value: self.completions.last.completion_value)
+	def generate_new_completion_and_duedate
+		if self.term == "daily" 
+			completion = Completion.new(completed: 0, completion_value: 0)
+			due_date  = DueDate.new(date: DateTime.now)
 			self.completions << completion
 			completion.save!
 		end
-	  # if task is recurring hourly && today is 1 hour away from last completion 
-	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)  
-	  # elsif task is recurring daily && today is 1 day away from last completion 
-	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max) 
-	  # elsif task is recurring weekly && today is one week away from last completion 
-	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max)
-	  #  elsif task is recurring monthly && today is one month away from last completion 
-	  #   completion = Completion.new(completed: 0, completen_max: self.completions.last.completen_max) 
-	  # end
+	    if self.term == "weekly" && been_one_week? 
+			completion = Completion.new(completed: 0, completion_value: 0)
+			1_week_from_now_in_seconds = (DateTime.now.to_i + SECONDS_IN_A_WEEK).to_s
+			due_date  = DueDate.new(date: DateTime.strptime(1_week_from_now_in_seconds,'%s') )
+			self.completions << completion
+			completion.save!
+		end
 	end
 
 	private 
-
-	def been_5_seconds? #since last completion
-		return true if (DateTime.now.to_i - self.completions.last.completed_at.to_i) >= (5)
-		false 
-    end 
 
 	def been_one_hour? #since last completion
 		return true if (DateTime.now.to_i - self.completions.last.completed_at.to_i) >= (SECONDS_IN_AN_HOUR)

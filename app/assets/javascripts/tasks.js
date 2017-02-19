@@ -192,19 +192,17 @@ function updateTasks() {
     	console.log(taskStatus.updated)
     	if (taskStatus.updated === "true"){
     	  $.ajax({
-	      url: "/sortweek",
-	      method: 'get'
-	    })
-	     .done(function(response){
+	        url: "/sortweek",
+	        method: 'get'
+	      }).done(function(response){
 	     	$("h1.text-center").text("New Tasks!")
 	     	$(".row").remove();
 	        $(".task-render").append(response);
-	    })
-    	}//is this a bug?
-
-    });
+	      })
+    	}
+     });
   	    // Sets a timer that calls the updateTask function 1x a minute
-    setTimeout(function () { updateTasks(); }, 10000);   
+    setTimeout(function () { updateTasks(); }, 60000);   
 }
 
 function makeDiv(task_id, dimensions){
