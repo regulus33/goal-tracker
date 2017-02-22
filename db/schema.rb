@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 20170126050227) do
     t.integer  "completion_max"
     t.string   "completion_unit"
     t.string   "term"
+    t.integer  "priority"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end
@@ -46,6 +47,7 @@ ActiveRecord::Schema.define(version: 20170126050227) do
     t.string   "username"
     t.string   "email"
     t.string   "password_digest"
+    t.string   "progress"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
   end

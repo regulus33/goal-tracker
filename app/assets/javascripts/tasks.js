@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	updateSliders();
 	$termSelect = $('#task_term').find(":selected").text();
 	$('#task_term').change(function(){
 		if($(this).find(":selected").text() == "never"){
@@ -13,12 +14,12 @@ $(document).ready(function() {
 		event.preventDefault();
 	    $.ajax({
 	      url: "/sortday",
-	      method: 'get'
+	      method: 'get' 
 	    })
 	     .done(function(response){
 	        $(".row").remove();
 	        $(".task-render").append(response);
-	        console.log(response)
+	        updateSliders();
 	     })
 	  }
 	);
@@ -32,6 +33,7 @@ $(document).ready(function() {
 	     .done(function(response){
 	     	$(".row").remove();
 	        $(".task-render").append(response);
+	        updateSliders();
 	    })
 	  }
 	);
@@ -45,6 +47,7 @@ $(document).ready(function() {
 	     .done(function(response){
 	     	$(".row").remove();
 	        $(".task-render").append(response);
+	        updateSliders();
 	    })
 	  }
 	);
@@ -120,6 +123,14 @@ $(document).ready(function() {
     })
 	// updateTasks();
 });
+
+ function updateSliders(){
+	$.each($("input.slider"), function( index, slider ) {
+		value = $(this).attr("data");
+		$(this).val(value)
+	});
+}
+
 
 function drawD3Pie(){
 	var width = 400,

@@ -7,6 +7,7 @@ class CreateTasks < ActiveRecord::Migration[5.0]
       t.integer :completion_max
       t.string :completion_unit
       t.string :term
+      t.integer :priority
       t.timestamps
     end
   end
