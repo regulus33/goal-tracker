@@ -53,7 +53,14 @@ class User < ApplicationRecord
     completed_value = total_completions_value(self.tasks.all)
     incomplete_value = total_value - completed_value
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
-  end 
+  end
+
+  def task_completion_ratio_of_each_day
+    # find out what today is, find out when the first task's completions were updated
+    # move from first day until now, (increment by seconds equaling a day)
+    # run task completion ratio of today for each of those days and save them in an array
+    # return the array
+  end  
  
   # uncommment for working authentication and delete above method
   # def password=(password)
