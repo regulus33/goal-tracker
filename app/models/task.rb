@@ -30,7 +30,8 @@ class Task < ApplicationRecord
 			completion = Completion.new(completed: 0, completion_value: 0)
 			due_date  = DueDate.new(date: DateTime.now)
 			self.completions << completion
-			completion.save!
+			self.due_dates << due_date
+			completion.save
 		end
 	    if self.term == "weekly" && been_one_week? 
 			completion = Completion.new(completed: 0, completion_value: 0)
