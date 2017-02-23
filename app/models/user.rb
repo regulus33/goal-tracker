@@ -16,8 +16,19 @@ class User < ApplicationRecord
     end 
   end 
 
-  def tasks_due_on_day(day)
-    self.tasks.select {|task| task.due_dates.include?}
+  def tasks_of_last_thirty_days()# arg must be datetime object 
+    # self.tasks.select {|task| last_thirty_days_array.each{|day| task.due_on_day?(day) }
+    # iterate through dates,and tasks
+    ratios = []
+    last_thirty_days_array.each do |date|
+      self.tasks.each do |task|
+        binding.pry
+        if task.due_on_day?(date)
+          ratios << task 
+        end 
+      end 
+    end
+    ratios
   end
 
   def tasks_due_today
@@ -70,7 +81,8 @@ class User < ApplicationRecord
   end
 
   def last_thirty_days_array
-    (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%F") }
+    (1.month.ago.to_date..Date.today).map{ |date| date }
+    # (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%F") }
   end 
   
  
