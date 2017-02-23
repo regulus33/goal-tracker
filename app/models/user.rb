@@ -16,6 +16,10 @@ class User < ApplicationRecord
     end 
   end 
 
+  def tasks_due_on_day(day)
+    self.tasks.select {|task| task.due_dates.include?}
+  end
+
   def tasks_due_today
     self.tasks.select {|task| task.due_today?}
   end
@@ -60,7 +64,15 @@ class User < ApplicationRecord
     # move from first day until now, (increment by seconds equaling a day)
     # run task completion ratio of today for each of those days and save them in an array
     # return the array
-  end  
+  end 
+
+  def task_completion_ratio_of_day(day) 
+  end
+
+  def last_thirty_days_array
+    (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%F") }
+  end 
+  
  
   # uncommment for working authentication and delete above method
   # def password=(password)

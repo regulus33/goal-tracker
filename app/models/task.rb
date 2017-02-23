@@ -20,6 +20,11 @@ class Task < ApplicationRecord
 		false 
 	end
 
+	def due_on_day?(date_time)
+		return true if self.due_dates.select {|date| date.date.strftime('%F') == date_time.strftime('%F')}.any? 
+		false 
+	end	
+
 	def due_this_week?
 	  return true if DateTime.now.to_i - self.due_dates.last.date.to_i <= SECONDS_IN_A_WEEK
 	  false
