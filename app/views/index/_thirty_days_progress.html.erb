@@ -6,7 +6,7 @@
 	  <% ratios.each_with_index do |ratio, index| %>
 	  	<div class="container graphic-container text-center">
 		    <h2>D3 Graphic</h2>
-		    <div data-row="<%= ratio.to_json %>" id="<%= index %>"></div>
+		    <div data-row="<%= ratio.to_json %>" id="index<%= index %>"></div>
 		</div>
 	  <% end %>
 </div>

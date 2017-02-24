@@ -239,7 +239,7 @@ function drawManyD3Pie(){
 		var arc = d3.svg.arc()
 		    .outerRadius(radius)
 
-		var myChart = d3.select("div#" + String(i)).append('svg')
+		var myChart = d3.select("#index" + String(i)).append('svg')
 		    .attr('width', width)
 		    .attr('height', height)
 		    .append('g')
