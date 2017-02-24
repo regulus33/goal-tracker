@@ -16,19 +16,22 @@ class User < ApplicationRecord
     end 
   end 
 
-  def tasks_of_last_thirty_days()# arg must be datetime object 
-    # self.tasks.select {|task| last_thirty_days_array.each{|day| task.due_on_day?(day) }
-    # iterate through dates,and tasks
+  def tasks_due_over_last_thirty_days()# arg must be datetime object 
     ratios = []
     last_thirty_days_array.each do |date|
       self.tasks.each do |task|
-        binding.pry
         if task.due_on_day?(date)
           ratios << task 
         end 
       end 
     end
     ratios
+  end
+
+  def tasks_due_on_day(date)
+    self.tasks.select do |task| 
+      task.due_on_day?(date)
+    end
   end
 
   def tasks_due_today
@@ -77,13 +80,25 @@ class User < ApplicationRecord
     # return the array
   end 
 
-  def task_completion_ratio_of_day(day) 
+  def task_completion_ratio_of_day(date)
+    total_value = tasks_due_on_day(date).count
+    if tasks_due_on_day(date).any?
+      completed_value = total_completions_value(tasks_due_on_day(date))
+    else
+      return {:label=>"incomplete", :value=>10.0}, {:label=>"completed", :value=>0.0} #random incomplete data 
+    end
+    incomplete_value = total_value - completed_value
+    ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end
 
   def last_thirty_days_array
     (1.month.ago.to_date..Date.today).map{ |date| date }
     # (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%F") }
   end 
+
+  def array_of_ratios
+    last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
+  end
   
  
   # uncommment for working authentication and delete above method
