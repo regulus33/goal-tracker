@@ -99,7 +99,6 @@ class User < ApplicationRecord
   def array_of_ratios
     last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
   end
-  
  
   # uncommment for working authentication and delete above method
   # def password=(password)

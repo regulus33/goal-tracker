@@ -93,6 +93,21 @@ $(document).ready(function() {
 	    })
 	  }
 	);
+    //show progress for eachday of month
+	$(document).on("click", "a#show-progress-each-day-of-month", function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/showprogressmonth",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	$(".row").remove();
+	        $(".task-render").append(response);
+	        console.log(response)
+	        drawManyD3Pie();
+	    })
+	  }
+	);
     //complete a task
 	$(document).on("click", "a.complete", function(event){
 		event.preventDefault();
@@ -190,6 +205,69 @@ function drawD3Pie(){
 	        d.outerRadius = radius;
 	        return 'translate('+ arc.centroid(d)+')'
 	})
+}
+
+function drawManyD3Pie(){
+	var width = 400,
+    height = 400,
+    radius = 200
+    colors = d3.scale.ordinal()
+        .range(['#595AB7','#A57706','#D11C24','#C61C6F','#BD3613','#2176C7','#259286','#738A05'])
+    var ratios = jQuery.parseJSON($("#chart").attr("data-row")); //returns an array of JSONs like the commented out
+    debugger
+    //'piedata' below
+	// var piedata = [
+	//     {   label: "Barot",
+	//         value: 50 },
+	//     {   label: "Gerard",
+	//         value: 50},
+	//     {   label: "Jonathan",
+	//         value: 50},
+	//     {   label: "Lorenzo",
+	//         value: 50},
+	//     {   label: "Hillary",
+	//         value: 50},
+	//     {   label: "Jennifer",
+	//         value: 50}
+	// ]
+	for (i = 0; i < ratios.length; i++){
+		var pie = d3.layout.pie()
+		    .value(function(d) {
+		        return d.value;
+		    })
+
+		var arc = d3.svg.arc()
+		    .outerRadius(radius)
+
+		var myChart = d3.select("div#" + String(i)).append('svg')
+		    .attr('width', width)
+		    .attr('height', height)
+		    .append('g')
+		    .attr('transform', 'translate('+(width-radius)+','+(height-radius)+')')
+		    .selectAll('path').data(pie(ratios[i]))
+		    .enter().append('g')
+		        .attr('class', 'slice')
+
+		var slices = d3.selectAll('g.slice')
+		        .append('path')
+		        .attr('fill', function(d, i) {
+		            return colors(i);
+		        })
+		        .attr('d', arc)
+
+		var text = d3.selectAll('g.slice')
+		    .append('text')
+		    .text(function(d, i) {
+		        return d.data.label;
+		    })
+		    .attr('text-anchor', 'middle')
+		    .attr('fill', 'white')
+		    .attr('transform', function(d) {
+		        d.innerRadius = 0;
+		        d.outerRadius = radius;
+		        return 'translate('+ arc.centroid(d)+')'
+		})
+    }
 }
 
 function updateTasks() {

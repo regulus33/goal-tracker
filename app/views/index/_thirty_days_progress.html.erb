@@ -1,0 +1,18 @@
+<div class="row">  
+	  <div class="container graphic-container text-center">
+	    <h2>D3 Graphic</h2>
+	    <div data-row="<%= ratios.to_json %>" id="chart"></div>
+	  </div>
+	  <% ratios.each_with_index do |ratio, index| %>
+	  	<div class="container graphic-container text-center">
+		    <h2>D3 Graphic</h2>
+		    <div data-row="<%= ratio.to_json %>" id="<%= index %>"></div>
+		</div>
+	  <% end %>
+</div>
+
+	
+
+
+
+
