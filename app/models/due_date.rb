@@ -14,11 +14,6 @@ class DueDate < ApplicationRecord
 	   COMMON_YEAR_DAYS_IN_MONTH[month]
 	end
 
-	def generate_new_due_date
-		# if been_one_second
-		# 	d = DueDate.new()
-	end 
-
     def been_one_second #since last completion
 		return true if (DateTime.now.to_i - self.task.completions.completed_at.to_i) >= (1)
 		false 
@@ -38,8 +33,4 @@ class DueDate < ApplicationRecord
 		return true if (DateTime.now.to_i - self.task.completions.completed_at.to_i) >= (SECONDS_IN_A_WEEK)
 		false
     end 
-
-    def been_one_month 
-		
-    end
 end
