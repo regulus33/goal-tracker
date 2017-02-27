@@ -1,0 +1,2 @@
+module RatioHelper
+end

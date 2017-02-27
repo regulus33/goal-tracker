@@ -3,6 +3,7 @@ Rails.application.routes.draw do
 	resources :users
 	resources :sessions
 	resources :tasks
+	resources :ratios
 	# resources :completions
 	get '/login', to: "sessions#new"
 	post '/login', to: "sessions#create"
@@ -18,5 +19,6 @@ Rails.application.routes.draw do
 	get '/showprogressall', to: "tasks#show_progress_all"
 	get '/showprogressmonth', to: "tasks#show_progress_each_day_of_month"
     put '/updatecompletion/:id', to: "tasks#update_completion"
+    post '/save', to: "ratios#save"
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

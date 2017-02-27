@@ -1,5 +1,7 @@
 class User < ApplicationRecord
-	has_many :tasks
+  has_many :tasks
+	has_many :due_dates, through: :tasks
+
 	has_secure_password
 
   def password
@@ -15,18 +17,6 @@ class User < ApplicationRecord
         task.completions.last.completed == 1 
     end 
   end 
-
-  def tasks_due_over_last_thirty_days()# arg must be datetime object 
-    ratios = []
-    last_thirty_days_array.each do |date|
-      self.tasks.each do |task|
-        if task.due_on_day?(date)
-          ratios << task 
-        end 
-      end 
-    end
-    ratios
-  end
 
   def tasks_due_on_day(date)
     self.tasks.select do |task| 
@@ -52,6 +42,12 @@ class User < ApplicationRecord
     end.reduce(:+) 
   end
 
+  def total_completions_value_and_task(tasks)
+   tasks.map do |task| 
+      task.completions.last.completion_value.to_f / task.completion_max.to_f 
+    end.reduce(:+) 
+  end
+
   def task_completion_ratio_of_today
     total_value = tasks_due_today.count
     completed_value = total_completions_value(tasks_due_today)
@@ -73,22 +69,16 @@ class User < ApplicationRecord
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end
 
-  def task_completion_ratio_of_each_day
-    # find out what today is, find out when the first task's completions were updated
-    # move from first day until now, (increment by seconds equaling a day)
-    # run task completion ratio of today for each of those days and save them in an array
-    # return the array
-  end 
-
   def task_completion_ratio_of_day(date)
-    total_value = tasks_due_on_day(date).count
     if tasks_due_on_day(date).any?
+      total_value = tasks_due_on_day(date).count
       completed_value = total_completions_value(tasks_due_on_day(date))
+      incomplete_value = total_value - completed_value
+      ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
+      return ratio
     else
       return {:label=>"incomplete", :value=>10.0}, {:label=>"completed", :value=>0.0} #random incomplete data 
     end
-    incomplete_value = total_value - completed_value
-    ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end
 
   def last_thirty_days_array

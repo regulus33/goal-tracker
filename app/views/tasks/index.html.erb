@@ -17,7 +17,7 @@
 				<div id="task-window-<%= task.id %>" class="col-md-4 task-container text-center">
 				   <div id="task-<%= task.id %>">
 			 		<p><h2><%=task.name %></h2></p>
-					<p>Due Date: <%=task.due_dates.last.date%></p>
+					<p>Due Date: <%=task.due_dates.last.date.strftime('%x')%></p>
 					<p>Description : <%=task.description%></p> 
 					<p>Term : <%=task.term%></p> 
 					<p>Completion Unit : <%=task.completion_unit%></p> 

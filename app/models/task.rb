@@ -29,7 +29,6 @@ class Task < ApplicationRecord
 	  return true if DateTime.now.to_i - self.due_dates.last.date.to_i <= SECONDS_IN_A_WEEK
 	  false
 	end
-
 	def generate_new_completion_and_duedate
 		if self.term == "daily" 
 			completion = Completion.new(completed: 0, completion_value: 0)
