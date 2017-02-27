@@ -4,6 +4,11 @@ class User < ApplicationRecord
 
 	has_secure_password
 
+  def ratio_persisted_today?
+    return true if self.due_dates.last.ratio 
+    false 
+  end 
+
   def password
   	self.password_digest
   end 

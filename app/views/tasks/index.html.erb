@@ -8,6 +8,13 @@
   	<a id="show-all-progress"><li>Progress Overall</li></a>
   	<a id="show-progress-each-day-of-month"><li>Progress of each day</li></a>
   	<a href="/tasks/new"><li>New Task</li></a>
+	<form method="post" action="/save">
+		<input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+		<input type="submit" value="Save Today's Progress">
+    </form>
+
+
+
   </ul>
 	<h1 class="text-center"><%=current_user.username%>'s Tasks</h1>
   <div class="task-render">

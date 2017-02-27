@@ -10,5 +10,6 @@ class RatiosController < ApplicationController
 		 ratio = Ratio.new(value: todays_ratio)
 		 ratio.due_date = today 
 		 ratio.save!
+		end
 	end 
 end
