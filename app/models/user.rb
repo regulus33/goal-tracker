@@ -60,6 +60,13 @@ class User < ApplicationRecord
     ratio = [{label: "incomplete", value: incomplete_value}, {label: "completed", value: completed_value}]
   end 
 
+  def float_task_completion_ratio_of_today
+    total_value = tasks_due_today.count
+    completed_value = total_completions_value(tasks_due_today)
+    incomplete_value = total_value - completed_value
+    ratio = completed_value / total_value
+  end 
+
   def task_completion_ratio_of_this_week
     total_value = tasks_due_this_week.count
     completed_value = total_completions_value(tasks_due_today)
