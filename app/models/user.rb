@@ -98,10 +98,20 @@ class User < ApplicationRecord
     # (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%F") }
   end 
 
+  # def array_of_ratios
+  #   last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
+  # end
+
   def array_of_ratios
-    last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
+    # last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
+    # we need an array of arrays with 2 objects, [{label: "incomplete", value: 1}, {label: "complete", value: 0.7}]
+    self.due_dates.map do |date|
+      if date.ratio 
+        [{label: "complete", value: date.ratio.value}, {label: "incomplete", value: 1}] 
+      end
+    end.compact
   end
- 
+
   # uncommment for working authentication and delete above method
   # def password=(password)
   #   self.password_digest = BCrypt::Password.create(password)
