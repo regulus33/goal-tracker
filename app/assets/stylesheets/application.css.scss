@@ -17,8 +17,8 @@
 @import "bootstrap";
 
 body{
-	background-color: black;
-	color: white;
+	background-color: white;
+	color: black;
 }
 
 div.task-container{
@@ -27,7 +27,6 @@ div.task-container{
 }
 
 div.jumbotron{
-	background-color: black;
 	border: 2px solid white;
 	border-radius: 8px;
 }
