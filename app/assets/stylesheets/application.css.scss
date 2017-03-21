@@ -41,13 +41,15 @@ div#due-date{
 }
 
 h2{
-
 	color: red;
 }
 h1{
-	/*font-family: 'Lato', sans-serif;*/
 	font-family: 'Roboto Condensed', sans-serif;
 	color: red;
+}
+
+h1 span.tasks{
+	font-family: 'Lato', sans-serif;
 }
 
 .nav-bar > li{
