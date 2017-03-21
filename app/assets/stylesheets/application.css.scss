@@ -46,16 +46,19 @@ h2{
 h1{
 	font-family: 'Roboto Condensed', sans-serif;
 	color: red;
-	font-size: 32px;
 }
 
 h1 span.tasks{
 	font-family: 'Lato', sans-serif;
-	font-size: 16px;
+	font-size: 21px;
+	color: #84d2ff;
 }
 
 h1 span.username{
+	font-size: 42px;
 	text-transform: capitalize;
+	color: #34a9ed;
+	letter-spacing: 2px;
 }
 
 .nav-bar > li{
