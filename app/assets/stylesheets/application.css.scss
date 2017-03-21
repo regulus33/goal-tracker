@@ -15,6 +15,7 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import url('https://fonts.googleapis.com/css?family=Lato|Roboto+Condensed');
 
 body{
 	background-color: white;
@@ -40,6 +41,12 @@ div#due-date{
 }
 
 h2{
+
+	color: red;
+}
+h1{
+	/*font-family: 'Lato', sans-serif;*/
+	font-family: 'Roboto Condensed', sans-serif;
 	color: red;
 }
 
