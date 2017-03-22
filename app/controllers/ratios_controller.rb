@@ -3,7 +3,7 @@ class RatiosController < ApplicationController
 
 	end 
 
-	def save
+	def save #update
 	  if current_user.ratio_persisted_today?
 	  	today = current_user.due_dates.last
 	  	todays_updated_ratio = current_user.float_task_completion_ratio_of_today 
