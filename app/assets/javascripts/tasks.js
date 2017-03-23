@@ -421,6 +421,7 @@ function barchart(){
 
 	var tempColor;
 	var bardata = dataObjects.map(function(t){return t.relevantData});
+	debugger
 	var colors = d3.scale.linear()
 	.domain([0, d3.max(bardata)])
 	// domain is the min and max of your data in this case 0 to 100 percent	
@@ -459,7 +460,7 @@ function barchart(){
 
 	        tooltip.transition()
 	            .style('opacity', .9)
-	        tooltip.html("this is a test string")
+	        tooltip.html(d.relevantData + " " + d.task_name + " " + d.completion_unit)
 	            .style('left', (d3.event.pageX - 35) + 'px')
 	            .style('top',  (d3.event.pageY - 30) + 'px')
 
