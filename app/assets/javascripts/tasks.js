@@ -448,7 +448,9 @@ function barchart(){
 	    .attr('height', height)
 	    .selectAll('rect').data(dataObjects)
 	    .enter().append('rect')
-	        .style('fill', colors)
+	        .style('fill', function(d){
+	        	return colors(d.relevantData);
+	        })
 	        .attr('width', barWidth)
 	        .attr('x', function(d,i) {
 	            return xScale(i);
