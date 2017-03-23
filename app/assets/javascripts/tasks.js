@@ -1,4 +1,4 @@
-$(document).ready(function() {
+	$(document).ready(function() {
 	updateSliders();
 	$termSelect = $('#task_term').find(":selected").text();
 	$('#task_term').change(function(){
@@ -16,7 +16,7 @@ $(document).ready(function() {
 	      url: "/sortday",
 	      method: 'get' 
 	    })
-	     .done(function(response){
+	     .done(function(response){			
 	        $(".row").remove();
 	        $(".task-render").append(response);
 	        updateSliders();
@@ -93,6 +93,21 @@ $(document).ready(function() {
 	    })
 	  }
 	);
+	//TEST TEST TEST ALERT ALERT 
+	$(document).on("click", "a#show-detail-today", function(event){
+		event.preventDefault();
+	    $.ajax({
+	      url: "/detailtoday",
+	      method: 'get'
+	    })
+	     .done(function(response){
+	     	// debugger
+	     	$(".row").remove();
+	        $(".task-render").append(response);
+	        barchart();
+	    })
+	  }
+	);
     //show progress for eachday of month
 	$(document).on("click", "a#show-progress-each-day-of-month", function(event){
 		event.preventDefault();
@@ -103,7 +118,6 @@ $(document).ready(function() {
 	     .done(function(response){
 	     	$(".row").remove();
 	        $(".task-render").append(response);
-	        console.log(response)
 	        drawManyD3Pie();
 	    })
 	  }
@@ -386,4 +400,89 @@ function graphic(divIdNums){
 
 	})();
 
+}
+
+function barchart(){
+
+	var bardata = [];
+
+	for (var i=0; i < 30; i++) {
+	    bardata.push(Math.round(Math.random()*30)+20)
+	}
+
+	var height = 400,
+	    width = 600,
+	    barWidth = (width/bardata.length)*.75 , //space bars out 
+	    barOffset = 5;
+
+	var tempColor;
+
+	var colors = d3.scale.linear()
+	.domain([0, d3.max(bardata)])
+	// domain is the min and max of your data in this case 0 to 100 percent	
+	.range(['#addbd8','#0092ed'])
+	// You usu­ally make use of a range when you want to trans­form the value of a raw data point into a cor­re­spond­ing pixel coor­di­nate.
+	//above, linear() returns a function, so colors is a function not a var 
+	//sam goes below 
+	var yScale = d3.scale.linear()
+	        .domain([0, d3.max(bardata)])
+	        .range([0, height]);
+
+	var xScale = d3.scale.ordinal()
+	        .domain(d3.range(0, bardata.length))
+	        .rangeBands([0, width])
+
+	var tooltip = d3.select('body').append('div')
+	        .style('position', 'absolute')
+	        .style('padding', '0 10px')
+	        .style('background', 'white')
+	        .style('opacity', 0)
+
+	var myChart = d3.select('#chart').append('svg')
+	    .attr('width', width)
+	    .attr('height', height)
+	    .selectAll('rect').data(bardata)
+	    .enter().append('rect')
+	        .style('fill', colors)
+	        .attr('width', barWidth)
+	        .attr('x', function(d,i) {
+	            return xScale(i);
+	        })
+	        .attr('height', 0)
+	        .attr('y', height)
+
+	    .on('mouseover', function(d) {
+
+	        tooltip.transition()
+	            .style('opacity', .9)
+
+	        tooltip.html(d)
+	            .style('left', (d3.event.pageX - 35) + 'px')
+	            .style('top',  (d3.event.pageY - 30) + 'px')
+
+
+	        tempColor = this.style.fill;
+	        d3.select(this)
+	            .style('opacity', .5)
+	            .style('fill', 'yellow')
+	    })
+
+	    .on('mouseout', function(d) {
+	        d3.select(this)
+	            .style('opacity', 1)
+	            .style('fill', tempColor)
+	    })
+
+	myChart.transition()
+	    .attr('height', function(d) {
+	        return yScale(d);
+	    })
+	    .attr('y', function(d) {
+	        return height - yScale(d);
+	    })
+	    .delay(function(d, i) {
+	        return i * 20;
+	    })
+	    .duration(1000)
+	    .ease('elastic')
 }

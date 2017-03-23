@@ -20,5 +20,6 @@ Rails.application.routes.draw do
 	get '/showprogressmonth', to: "tasks#show_progress_each_day_of_month"
     put '/updatecompletion/:id', to: "tasks#update_completion"
     post '/save', to: "ratios#save"
+    get '/detailtoday', to: "users#detail_today"
     # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

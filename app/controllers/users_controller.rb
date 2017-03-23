@@ -13,6 +13,11 @@ class UsersController < ApplicationController
 		redirect_to '/login'
 	end
 
+	def detail_today
+		task_hashes = current_user.tasks_data_today
+		render :partial => '/index/detailtoday', :locals => {tasks: task_hashes} 
+	end 
+
 	private 
 	
 	def user_params 
