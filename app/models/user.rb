@@ -117,11 +117,15 @@ class User < ApplicationRecord
     tasks_of_today = self.tasks_due_today
     tasks = []
     tasks_of_today.each do |task|
-      completion_value = task.completions.last.completion_value
-      task_name = task.name 
-      
-
+      task = {
+        task_name: task.name, 
+        completion_value: task.completions.last.completion_value,
+        completion_max: task.completion_max,
+        completion_unit: task.completion_unit
+      }
+    tasks << task 
     end
+    tasks 
   end 
 
   # uncommment for working authentication and delete above method
