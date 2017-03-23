@@ -27,7 +27,7 @@ class TasksController < ApplicationController
 	     completion_unit:task_params[:completion_unit],
 	     term: task_params[:term]
 	      )
-		unless task_params[:due_date][0][:date] == ""
+		unless task_params[:due_date][0][:date] == "" #handling empty submissions
 			due_date = DueDate.new(date: DateTime.parse(task_params[:due_date][0][:date]))
 			task.due_dates << due_date
 		    due_date.save!

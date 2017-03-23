@@ -112,6 +112,18 @@ class User < ApplicationRecord
     end.compact
   end
 
+  def tasks_data_today  
+    # this should return an array of objects with task names, their completion values for the day and so on
+    tasks_of_today = self.tasks_due_today
+    tasks = []
+    tasks_of_today.each do |task|
+      completion_value = task.completions.last.completion_value
+      task_name = task.name 
+      
+
+    end
+  end 
+
   # uncommment for working authentication and delete above method
   # def password=(password)
   #   self.password_digest = BCrypt::Password.create(password)
