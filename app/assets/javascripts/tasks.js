@@ -404,27 +404,23 @@ function graphic(divIdNums){
 
 function barchart(){
 
-	var bardata = [];
+	// var bardata = [];
 	var dataObjects = []; //we will iterate through the dom and add JSON objects to this array
 
 	var list= document.getElementsByClassName("data-div");
 	for (var i = 0; i < list.length; i++) {
-		var taskObject, relevantData
-		taskObject =  JSON.parse(list[i].getAttribute("data-row"));
-		relevantData = taskObject.completion_value / taskObject.completion_max; 
+		let taskObject =  JSON.parse(list[i].getAttribute("data-row"));
+		taskObject.relevantData = taskObject.completion_value / taskObject.completion_max; 
 	    dataObjects.push(  taskObject  ); //second console output
-	    bardata.push( relevantData  );
-	    debugger
-	  
 	}
 
 	var height = 400,
 	    width = 600,
-	    barWidth = (width/bardata.length)*.75 , //space bars out 
+	    barWidth = (width/dataObjects.length)*.5, //space bars out 
 	    barOffset = 5;
 
 	var tempColor;
-
+	var bardata = dataObjects.map(function(t){return t.relevantData});
 	var colors = d3.scale.linear()
 	.domain([0, d3.max(bardata)])
 	// domain is the min and max of your data in this case 0 to 100 percent	
@@ -437,7 +433,7 @@ function barchart(){
 	        .range([0, height]);
 
 	var xScale = d3.scale.ordinal()
-	        .domain(d3.range(0, bardata.length))
+	        .domain(d3.range(0, dataObjects.length))
 	        .rangeBands([0, width])
 
 	var tooltip = d3.select('body').append('div')
@@ -449,7 +445,7 @@ function barchart(){
 	var myChart = d3.select('#chart').append('svg')
 	    .attr('width', width)
 	    .attr('height', height)
-	    .selectAll('rect').data(bardata)
+	    .selectAll('rect').data(dataObjects)
 	    .enter().append('rect')
 	        .style('fill', colors)
 	        .attr('width', barWidth)
@@ -463,8 +459,7 @@ function barchart(){
 
 	        tooltip.transition()
 	            .style('opacity', .9)
-
-	        tooltip.html(d)
+	        tooltip.html("this is a test string")
 	            .style('left', (d3.event.pageX - 35) + 'px')
 	            .style('top',  (d3.event.pageY - 30) + 'px')
 
@@ -483,10 +478,10 @@ function barchart(){
 
 	myChart.transition()
 	    .attr('height', function(d) {
-	        return yScale(d);
+	        return yScale(d.relevantData);
 	    })
 	    .attr('y', function(d) {
-	        return height - yScale(d);
+	        return height - yScale(d.relevantData);
 	    })
 	    .delay(function(d, i) {
 	        return i * 20;
