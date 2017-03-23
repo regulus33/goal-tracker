@@ -405,9 +405,17 @@ function graphic(divIdNums){
 function barchart(){
 
 	var bardata = [];
+	var dataObjects = []; //we will iterate through the dom and add JSON objects to this array
 
-	for (var i=0; i < 30; i++) {
-	    bardata.push(Math.round(Math.random()*30)+20)
+	var list= document.getElementsByClassName("data-div");
+	for (var i = 0; i < list.length; i++) {
+		var taskObject, relevantData
+		taskObject =  JSON.parse(list[i].getAttribute("data-row"));
+		relevantData = taskObject.completion_value / taskObject.completion_max; 
+	    dataObjects.push(  taskObject  ); //second console output
+	    bardata.push( relevantData  );
+	    debugger
+	  
 	}
 
 	var height = 400,
@@ -434,7 +442,7 @@ function barchart(){
 
 	var tooltip = d3.select('body').append('div')
 	        .style('position', 'absolute')
-	        .style('padding', '0 10px')
+	        .style('padding', '5px 10px')
 	        .style('background', 'white')
 	        .style('opacity', 0)
 
@@ -464,7 +472,7 @@ function barchart(){
 	        tempColor = this.style.fill;
 	        d3.select(this)
 	            .style('opacity', .5)
-	            .style('fill', 'yellow')
+	            .style('fill', '#35607a')
 	    })
 
 	    .on('mouseout', function(d) {
