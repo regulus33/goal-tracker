@@ -147,15 +147,13 @@
 	);
 	// task slider 
 	$(document).on("input change", "input.slider", function() {
-
       val = $(this).val();
-      $(this).siblings().first().text(val);
+      $(this).siblings().eq(2).text(val);
     })
 	// updateTasks();
 	$(document).on("click", "a.show-slide", function(event){
-		$(this).next().slideToggle();
-		// $("input.slider").slideUp();
-    })
+		$(this).next().slideToggle("slow");	
+	});
 });
 
  function updateSliders(){
