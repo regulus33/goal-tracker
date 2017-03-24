@@ -128,6 +128,10 @@ class User < ApplicationRecord
     tasks 
   end 
 
+  def tasks_incomplete_and_due_today 
+    self.tasks.select{|task| task.due_today? && !task.completed?}
+  end 
+
   # uncommment for working authentication and delete above method
   # def password=(password)
   #   self.password_digest = BCrypt::Password.create(password)

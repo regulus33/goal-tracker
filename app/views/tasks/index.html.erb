@@ -3,14 +3,11 @@
   <div class="task-render">
 	<div class="row tasks">
 		<% if current_user.tasks %>
-			<% current_user.tasks.each do |task| %>
+			<% current_user.tasks_incomplete_and_due_today .each do |task| %>
 				<div id="task-window-<%= task.id %>" class="col-md-4 task-container text-center">
 				   <div id="task-<%= task.id %>">
 			 		<p><h2><%=task.name %></h2></p>
-					<p>Due Date: <%=task.due_dates.last.date.strftime('%x')%></p>
-					<p>Description : <%=task.description%></p> 
-					<p>Term : <%=task.term%></p> 
-					<p>Completion Unit : <%=task.completion_unit%></p> 
+					<p>Due <%=task.due_dates.last.date.strftime("%B %-d, %Y")%></p>
 					<% if task.completions.any? %>
 						<p>
 						  <% if task.completions.last.completed == 0 %>

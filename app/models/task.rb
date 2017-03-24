@@ -8,6 +8,12 @@ class Task < ApplicationRecord
 	has_many :completions
 	has_many :due_dates
 
+	def completed? 
+		# in the sense that the last due date is complete
+		return true if self.completion_max == self.completions.last.completion_value 
+		false 
+	end
+
 	def clean_self 
 		if self.completion_unit == "none"
 			self.completion_max = 1

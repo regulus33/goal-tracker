@@ -31,8 +31,9 @@
 	      method: 'get'
 	    })
 	     .done(function(response){
-	     	$(".row").remove();
-	        $(".task-render").append(response);
+		 	// $( "#row" ).toggle( "bounce", { times: 3 }, "slow" );
+	        $(response).hide().appendTo(".task-render").slideDown(100);
+	        // $('response').show().animate({ top: 305 }, {duration: 1000, easing: 'easeOutBounce'});
 	        updateSliders();
 	    })
 	  }
@@ -421,7 +422,6 @@ function barchart(){
 
 	var tempColor;
 	var bardata = dataObjects.map(function(t){return t.relevantData});
-	debugger
 	var colors = d3.scale.linear()
 	.domain([0, d3.max(bardata)])
 	// domain is the min and max of your data in this case 0 to 100 percent	
