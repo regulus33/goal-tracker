@@ -31,7 +31,7 @@
 	      method: 'get'
 	    })
 	     .done(function(response){
-		 	// $( "#row" ).toggle( "bounce", { times: 3 }, "slow" );
+		 	$( "#row" ).remove();
 	        $(response).hide().appendTo(".task-render").slideDown(100);
 	        // $('response').show().animate({ top: 305 }, {duration: 1000, easing: 'easeOutBounce'});
 	        updateSliders();

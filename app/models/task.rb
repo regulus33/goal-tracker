@@ -56,6 +56,10 @@ class Task < ApplicationRecord
 		end
 	end
 
+	def units_left_till_complete
+    	self.completion_max	- self.completions.last.completion_value
+    end
+
 	private 
 
 	def been_one_hour? #since last completion

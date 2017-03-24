@@ -24,12 +24,14 @@ body{
 }
 
 div.task-container{
-	border: 2px solid white;
+	margin: 10px;
+	border: 2px solid #dbe8ff;
 	border-radius: 8px;
 }
 
 div.jumbotron{
-	border: 2px solid white;
+	margin: 10px;
+	border: 2px solid #dbe8ff;
 	border-radius: 8px;
 }
 
@@ -42,28 +44,44 @@ div#due-date{
 }
 
 h2{
-	color: red;
+	color: #34a9ed;
+	font-size: 40px;
+	text-transform: uppercase;
 }
 h1{
 	font-family: 'Roboto Condensed', sans-serif;
-	color: red;
 }
 
 h1 span.tasks{
 	font-family: 'Lato', sans-serif;
 	font-size: 21px;
-	color: #84d2ff;
+	color: #34a9ed;
 }
 
 h1 span.username{
-	font-size: 42px;
+	font-size: 70px;
 	text-transform: capitalize;
 	color: #34a9ed;
 	letter-spacing: 2px;
+}
+
+h1 span.tasks, h1 span.username{
+
 }
 
 .nav-bar > li{
 	float: left;
 }
 
+p.due-date{
+	font-size: 20px;
+	color: #aaaaaa;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+p.completion-info{
+	font-size: 20px;
+	color: #aaaaaa;
+	font-family: 'Roboto Condensed', sans-serif;
+}
 
