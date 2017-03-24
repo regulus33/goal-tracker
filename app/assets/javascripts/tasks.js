@@ -152,6 +152,10 @@
       $(this).siblings().first().text(val);
     })
 	// updateTasks();
+	$(document).on("click", "a.show-slide", function(event){
+		$(this).next().slideToggle();
+		// $("input.slider").slideUp();
+    })
 });
 
  function updateSliders(){
@@ -169,21 +173,6 @@ function drawD3Pie(){
     colors = d3.scale.ordinal()
         .range(['#595AB7','#A57706','#D11C24','#C61C6F','#BD3613','#2176C7','#259286','#738A05']);
     var ratio = jQuery.parseJSON($("#chart").attr("data-row")); //returns an array of JSONs like the commented out
-    //'piedata' below
-	// var piedata = [
-	//     {   label: "Barot",
-	//         value: 50 },
-	//     {   label: "Gerard",
-	//         value: 50},
-	//     {   label: "Jonathan",
-	//         value: 50},
-	//     {   label: "Lorenzo",
-	//         value: 50},
-	//     {   label: "Hillary",
-	//         value: 50},
-	//     {   label: "Jennifer",
-	//         value: 50}
-	// ]
 	var pie = d3.layout.pie()
 	    .value(function(d) {
 	        return d.value;
@@ -229,7 +218,6 @@ function drawManyD3Pie(){
     colors = d3.scale.ordinal()
         .range(['#595AB7','#A57706','#D11C24','#C61C6F','#BD3613','#2176C7','#259286','#738A05'])
     var ratios = jQuery.parseJSON($("#chart").attr("data-row")); //returns an array of JSONs like the commented out
-    debugger
     //'piedata' below
 	// var piedata = [
 	//     {   label: "Barot",
