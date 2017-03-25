@@ -482,10 +482,21 @@ function barchart(){
 function drawThirtyDays(){
 
 	var bardata = [];
+	var data = [{"jsonDate":"09\/22\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"09\/26\/11","jsonHitCount":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/27\/11","jsonHitCount":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/29\/11","jsonHitCount":26,"seriesKey":"Website Usage"},{"jsonDate":"09\/30\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/03\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"10\/06\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/11\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/12\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/13\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/14\/11","jsonHitCount":5,"seriesKey":"Website Usage"},{"jsonDate":"10\/17\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/18\/11","jsonHitCount":6,"seriesKey":"Website Usage"},{"jsonDate":"10\/19\/11","jsonHitCount":8,"seriesKey":"Website Usage"},{"jsonDate":"10\/20\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/21\/11","jsonHitCount":4,"seriesKey":"Website Usage"},{"jsonDate":"10\/24\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/25\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/27\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/01\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/02\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/03\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/04\/11","jsonHitCount":37,"seriesKey":"Website Usage"},{"jsonDate":"11\/08\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/10\/11","jsonHitCount":39,"seriesKey":"Website Usage"},{"jsonDate":"11\/11\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/14\/11","jsonHitCount":15,"seriesKey":"Website Usage"},{"jsonDate":"11\/15\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/16\/11","jsonHitCount":5,"seriesKey":"Website Usage"},{"jsonDate":"11\/17\/11","jsonHitCount":4,"seriesKey":"Website Usage"},{"jsonDate":"11\/21\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/22\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/23\/11","jsonHitCount":11,"seriesKey":"Website Usage"},{"jsonDate":"11\/24\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/25\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/28\/11","jsonHitCount":10,"seriesKey":"Website Usage"},{"jsonDate":"11\/29\/11","jsonHitCount":3,"seriesKey":"Website Usage"}];
+
+	    // helper function
+    function getDate(d) {
+        return new Date(d.jsonDate);
+    }
+    
+    // get max and min dates - this assumes data is sorted
+    var minDate = getDate(data[0]),
+        maxDate = getDate(data[data.length-1]);
 
 	for (var i=0; i < 50; i++) {
-	    bardata.push(Math.round(Math.random()*100)+10)
+	    bardata.push(Math.round(Math.random()*1000)+10)
 	}
+
 
 	bardata.sort(function compareNumbers(a,b) {
 	    return a -b;
@@ -511,6 +522,8 @@ function drawThirtyDays(){
 	var xScale = d3.scale.ordinal()
 	        .domain(d3.range(0, bardata.length))
 	        .rangeBands([0, width], 0.2)
+
+	var timeScale = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
 
 	var tooltip = d3.select('body').append('div')
 	        .style('position', 'absolute')
@@ -589,10 +602,11 @@ function drawThirtyDays(){
 	        .style({ stroke: "#000"})
 
 	var hAxis = d3.svg.axis()
-	    .scale(xScale)
+	    .scale(timeScale)
 	    .orient('bottom')
-	    .tickValues(xScale.domain().filter(function(d, i) {
-	        return !(i % (bardata.length/5));
+	    .tickValues(timeScale.domain().filter(function(d, i) {
+	    	debugger
+	        return !(i % (data.length/5));
 	    }))
 
 	var hGuide = d3.select('svg').append('g')
