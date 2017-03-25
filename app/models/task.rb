@@ -3,7 +3,6 @@ class Task < ApplicationRecord
 	SECONDS_IN_AN_HOUR = 3600
 	SECONDS_IN_A_DAY = SECONDS_IN_AN_HOUR * 24
 	SECONDS_IN_A_WEEK = SECONDS_IN_A_DAY * 7
-
 	belongs_to :user
 	has_many :completions
 	has_many :due_dates
@@ -35,6 +34,7 @@ class Task < ApplicationRecord
 	  return true if DateTime.now.to_i - self.due_dates.last.date.to_i <= SECONDS_IN_A_WEEK
 	  false
 	end
+
 	def generate_new_completion_and_duedate
 		if self.term == "daily" 
 			completion = Completion.new(completed: 0, completion_value: 0)
