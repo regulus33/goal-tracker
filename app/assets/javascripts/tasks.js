@@ -483,6 +483,7 @@ function drawThirtyDays(){
 
 	var bardata = [];
 	var data = [{"jsonDate":"09\/22\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"09\/26\/11","jsonHitCount":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/27\/11","jsonHitCount":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/29\/11","jsonHitCount":26,"seriesKey":"Website Usage"},{"jsonDate":"09\/30\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/03\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"10\/06\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/11\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/12\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/13\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/14\/11","jsonHitCount":5,"seriesKey":"Website Usage"},{"jsonDate":"10\/17\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/18\/11","jsonHitCount":6,"seriesKey":"Website Usage"},{"jsonDate":"10\/19\/11","jsonHitCount":8,"seriesKey":"Website Usage"},{"jsonDate":"10\/20\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/21\/11","jsonHitCount":4,"seriesKey":"Website Usage"},{"jsonDate":"10\/24\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/25\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/27\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/01\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/02\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/03\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/04\/11","jsonHitCount":37,"seriesKey":"Website Usage"},{"jsonDate":"11\/08\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/10\/11","jsonHitCount":39,"seriesKey":"Website Usage"},{"jsonDate":"11\/11\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/14\/11","jsonHitCount":15,"seriesKey":"Website Usage"},{"jsonDate":"11\/15\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/16\/11","jsonHitCount":5,"seriesKey":"Website Usage"},{"jsonDate":"11\/17\/11","jsonHitCount":4,"seriesKey":"Website Usage"},{"jsonDate":"11\/21\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/22\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/23\/11","jsonHitCount":11,"seriesKey":"Website Usage"},{"jsonDate":"11\/24\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/25\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/28\/11","jsonHitCount":10,"seriesKey":"Website Usage"},{"jsonDate":"11\/29\/11","jsonHitCount":3,"seriesKey":"Website Usage"}];
+    var dataArray = data.map(function(object){return object.jsonHitCount;})
 
 	    // helper function
     function getDate(d) {
@@ -513,11 +514,11 @@ function drawThirtyDays(){
 	var tempColor;
 	//setting up the color function 
 	var colors = d3.scale.linear()
-	.domain([0, bardata.length*.33, bardata.length*.66, bardata.length])
+	.domain([0, dataArray.length*.33, dataArray.length*.66, dataArray.length])
 	.range(['#B58929','#C61C6F', '#268BD2', '#85992C'])
 	//setting up attributes for y axis, the scale, the height, domain etc.
 	var yScale = d3.scale.linear()
-	        .domain([0, d3.max(bardata)])
+	        .domain([0, d3.max(dataArray)])
 	        .range([0, height]);
 	//sizing of x axis
 	var xScale = d3.scale.ordinal()
@@ -532,8 +533,7 @@ function drawThirtyDays(){
 	        .style('background', 'white')
 	        .style('opacity', 0)
     //the actual graphic %^&^%^&$$%#$%^%^(&^$#%^&*()_*&*^&%^$%#$^&^*&)
-    var dataArray = data.map(function(object){return object.jsonHitCount;})
-    // debugger
+   
 	var myChart = d3.select('#chart').append('svg')
 	    .style('background', 'white')
 	    .attr('width', width + margin.left + margin.right)
@@ -573,6 +573,7 @@ function drawThirtyDays(){
 	            .style('opacity', 1)
 	            .style('fill', tempColor)
 	    })
+    debugger
 	//animation 
 	myChart.transition()
 	    .attr('height', function(d) {
@@ -588,7 +589,7 @@ function drawThirtyDays(){
 	    .ease('elastic')
 	//guide?
 	var vGuideScale = d3.scale.linear()
-	    .domain([0, d3.max(bardata)])
+	    .domain([0, d3.max(dataArray)])
 	    .range([height, 0])
 	//the axis needs to know the scale so we can end and begin appropriatetly 
 	var vAxis = d3.svg.axis()
