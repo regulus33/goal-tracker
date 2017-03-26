@@ -95,16 +95,37 @@ class User < ApplicationRecord
 
   def last_thirty_days_array
     (1.month.ago.to_date..Date.today).map{ |date| date }
-    # (1.month.ago.to_date..Date.today).map{ |date| date.strftime("%F") }
   end 
 
+# {
+#  jsonDate: "09\/22\/11",
+#  percent: 0.77 
+# }
+# eventually make each bar a link to its respective day
+  def last_thirty_due_date_objects 
+    last_thirty_due_dates = []
+    last_thirty_days_array.each do |x|  
+      self.due_dates.each do |y|
+        if x == y.date 
+          last_thirty_due_dates << y 
+        end
+      end
+    end
+    last_thirty_due_dates
+  end
+
+  def last_month_data 
+    last_thirty_due_date_objects.map do |x|
+      {date: x.date.strftime("%m/%d/%Y") }
+    end
+  end
   # def array_of_ratios
   #   last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
   # end
 
+  # {"jsonDate":"09\/22\/11","jsonHitCount":2,"seriesKey":"Website Usage"}
+
   def array_of_ratios
-    # last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
-    # we need an array of arrays with 2 objects, [{label: "incomplete", value: 1}, {label: "complete", value: 0.7}]
     self.due_dates.map do |date|
       if date.ratio 
         [{label: "complete", value: date.ratio.value}, {label: "incomplete", value: 1}] 
@@ -112,8 +133,8 @@ class User < ApplicationRecord
     end.compact
   end
 
+  # this should return an array of objects with task names, their completion values for the day and so on
   def tasks_data_today  
-    # this should return an array of objects with task names, their completion values for the day and so on
     tasks_of_today = self.tasks_due_today
     tasks = []
     tasks_of_today.each do |task|
@@ -123,7 +144,7 @@ class User < ApplicationRecord
         completion_max: task.completion_max,
         completion_unit: task.completion_unit
       }
-    tasks << task 
+      tasks << task 
     end
     tasks 
   end 
