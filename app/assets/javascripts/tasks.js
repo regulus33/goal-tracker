@@ -493,51 +493,54 @@ function drawThirtyDays(){
     var minDate = getDate(data[0]),
         maxDate = getDate(data[data.length-1]);
 
-	for (var i=0; i < 50; i++) {
+	for (var i=0; i < 37; i++) {
 	    bardata.push(Math.round(Math.random()*1000)+10)
 	}
 
-
+	//sorts horizontal ordinal
 	bardata.sort(function compareNumbers(a,b) {
 	    return a -b;
 	});
-
+	//to be passed to css declarations later 
 	var margin = { top: 30, right: 30, bottom: 40, left:50 }
-
+	//specify dimensions of graphic 
 	var height = 400 - margin.top - margin.bottom,
 	    width = 600 - margin.left - margin.right,
 	    barWidth = 50,
 	    barOffset = 5;
 
+	//declaring a var before it is fiven a value
 	var tempColor;
-
+	//setting up the color function 
 	var colors = d3.scale.linear()
 	.domain([0, bardata.length*.33, bardata.length*.66, bardata.length])
 	.range(['#B58929','#C61C6F', '#268BD2', '#85992C'])
-
+	//setting up attributes for y axis, the scale, the height, domain etc.
 	var yScale = d3.scale.linear()
 	        .domain([0, d3.max(bardata)])
 	        .range([0, height]);
-
+	//sizing of x axis
 	var xScale = d3.scale.ordinal()
-	        .domain(d3.range(0, bardata.length))
+	        .domain(d3.range(0, data.length))
 	        .rangeBands([0, width], 0.2)
-
+	// newly inserted code for time 
 	var timeScale = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
-
+	//pop up info 
 	var tooltip = d3.select('body').append('div')
 	        .style('position', 'absolute')
 	        .style('padding', '0 10px')
 	        .style('background', 'white')
 	        .style('opacity', 0)
-
+    //the actual graphic %^&^%^&$$%#$%^%^(&^$#%^&*()_*&*^&%^$%#$^&^*&)
+    var dataArray = data.map(function(object){return object.jsonHitCount;})
+    // debugger
 	var myChart = d3.select('#chart').append('svg')
-	    .style('background', '#E7E0CB')
+	    .style('background', 'white')
 	    .attr('width', width + margin.left + margin.right)
 	    .attr('height', height + margin.top + margin.bottom)
 	    .append('g')
 	    .attr('transform', 'translate('+ margin.left +', '+ margin.top +')')
-	    .selectAll('rect').data(bardata)
+	    .selectAll('rect').data(dataArray)
 	    .enter().append('rect')
 	        .style('fill', function(d,i) {
 	            return colors(i);
@@ -558,7 +561,7 @@ function drawThirtyDays(){
 	            .style('left', (d3.event.pageX - 35) + 'px')
 	            .style('top',  (d3.event.pageY - 30) + 'px')
 
-
+	        // declared on line ~512
 	        tempColor = this.style.fill;
 	        d3.select(this)
 	            .style('opacity', .5)
@@ -570,7 +573,7 @@ function drawThirtyDays(){
 	            .style('opacity', 1)
 	            .style('fill', tempColor)
 	    })
-
+	//animation 
 	myChart.transition()
 	    .attr('height', function(d) {
 	        return yScale(d);
@@ -583,16 +586,16 @@ function drawThirtyDays(){
 	    })
 	    .duration(1000)
 	    .ease('elastic')
-
+	//guide?
 	var vGuideScale = d3.scale.linear()
 	    .domain([0, d3.max(bardata)])
 	    .range([height, 0])
-
+	//the axis needs to know the scale so we can end and begin appropriatetly 
 	var vAxis = d3.svg.axis()
 	    .scale(vGuideScale)
 	    .orient('left')
 	    .ticks(10)
-
+	//this is the actual guide and its visual properties 
 	var vGuide = d3.select('svg').append('g')
 	    vAxis(vGuide)
 	    vGuide.attr('transform', 'translate(' + margin.left + ', ' + margin.top + ')')
@@ -600,14 +603,14 @@ function drawThirtyDays(){
 	        .style({ fill: 'none', stroke: "#000"})
 	    vGuide.selectAll('line')
 	        .style({ stroke: "#000"})
+	//heres what were concerned with 
 
 	var hAxis = d3.svg.axis()
 	    .scale(timeScale)
 	    .orient('bottom')
-	    .tickValues(timeScale.domain().filter(function(d, i) {
-	    	debugger
-	        return !(i % (data.length/5));
-	    }))
+	    .tickValues(timeScale.domain());
+	    //this is basically working we just need to specify amount of printed dates
+	    //and make sure data is same length?
 
 	var hGuide = d3.select('svg').append('g')
 	    hAxis(hGuide)
