@@ -6,8 +6,8 @@
 			<% current_user.tasks.each do |task| %>
 				<div id="task-window-<%= task.id %>" class="col-md-5 task-container text-center">
 				   <div id="task-<%= task.id %>">
-			 		<p><h2 class="<%= task.completions.last.completed=0 ? "done" : "not-done" %>"><%=task.name %></h2></p>
-					<p class="due-date">Due <%=task.due_dates.last.date.strftime("%B %-d, %Y")%></p>
+			 		<p><h2 class="<%= task.completions.last.completed==0 ? "not-done" : "done" %>"><%=task.name %></h2></p>
+					<p class="due-date <%= task.completions.last.completed==0 ? "not-done" : "done" %>">Due <%=task.due_dates.last.date.strftime("%B %-d, %Y")%></p>
 					<% if task.completions.any? %>
 						<p class="completion-info">
 						  <% if task.completions.last.completed == 0 %>
@@ -18,7 +18,7 @@
 						</p>
 						<!-- <a id="<%= task.id %>" class="btn-primary complete">U COMPLETE ME</a> -->
 						<!-- slide scale input -->
-						<a class="show-slide">…</a class="show-slide">
+						<a class="show-slide">&#9662;</a class="show-slide">
 						<form class="slider" method="post" action="/updatecompletion/<%= task.id %>">
 							<input data="<%=task.completions.last.completion_value%>"  class="slider" name="task[completion_value]" type="range" min="0" max="<%= task.completion_max%>" value="0" step="1"  />
 							<input name="_method" type="hidden" value="put" />
