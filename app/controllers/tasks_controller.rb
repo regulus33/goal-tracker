@@ -105,8 +105,8 @@ class TasksController < ApplicationController
 	end 
 
 	def show_progress_each_day_of_month
-		ratios = current_user.array_of_ratios
-		render :partial => '/index/thirty_days_progress', :locals => {ratios: ratios} 
+		data = current_user.last_month_data
+		render :partial => '/index/thirty_days_progress', :locals => {data: data} 
 	end  
 
 	private 

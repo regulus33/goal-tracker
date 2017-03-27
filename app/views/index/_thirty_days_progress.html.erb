@@ -1,12 +1,11 @@
 <div class="row">  
 	  <div class="container graphic-container text-center">
-	    <h2>D3 Graphic</h2>
-	    <div data-row="<%= ratios.to_json %>" id="chart"></div>
+	    <h2>Last Thirty Days</h2>
+	    <div data-row="<%= data.to_json %>" id="chart"></div>
 	  </div>
-	  <% ratios.each_with_index do |ratio, index| %>
+	  <% data.each_with_index do |object, index| %>
 	  	<div class="container graphic-container text-center">
-		    <h2>D3 Graphic</h2>
-		    <div data-row="<%= ratio.to_json %>" id="index<%= index %>"></div>
+		    <div class="data-div" data-row="<%= object.to_json %>" id="index<%= index %>"></div>
 		</div>
 	  <% end %>
 </div>

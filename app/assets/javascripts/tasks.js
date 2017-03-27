@@ -94,7 +94,7 @@
 	    })
 	  }
 	);
-	//TEST TEST TEST ALERT ALERT 
+	//daily barchart
 	$(document).on("click", "a#show-detail-today", function(event){
 		event.preventDefault();
 	    $.ajax({
@@ -216,21 +216,6 @@ function drawManyD3Pie(){
     colors = d3.scale.ordinal()
         .range(['#595AB7','#A57706','#D11C24','#C61C6F','#BD3613','#2176C7','#259286','#738A05'])
     var ratios = jQuery.parseJSON($("#chart").attr("data-row")); //returns an array of JSONs like the commented out
-    //'piedata' below
-	// var piedata = [
-	//     {   label: "Barot",
-	//         value: 50 },
-	//     {   label: "Gerard",
-	//         value: 50},
-	//     {   label: "Jonathan",
-	//         value: 50},
-	//     {   label: "Lorenzo",
-	//         value: 50},
-	//     {   label: "Hillary",
-	//         value: 50},
-	//     {   label: "Jennifer",
-	//         value: 50}
-	// ]
 	for (i = 0; i < ratios.length; i++){
 		var pie = d3.layout.pie()
 		    .value(function(d) {
@@ -390,8 +375,6 @@ function graphic(divIdNums){
 }
 
 function barchart(){
-
-	// var bardata = [];
 	var dataObjects = []; //we will iterate through the dom and add JSON objects to this array
 
 	var list= document.getElementsByClassName("data-div");
@@ -482,12 +465,19 @@ function barchart(){
 function drawThirtyDays(){
 
 	var bardata = [];
-	var data = [{"jsonDate":"09\/22\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"09\/26\/11","jsonHitCount":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/27\/11","jsonHitCount":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/29\/11","jsonHitCount":26,"seriesKey":"Website Usage"},{"jsonDate":"09\/30\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/03\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"10\/06\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/11\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/12\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/13\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/14\/11","jsonHitCount":5,"seriesKey":"Website Usage"},{"jsonDate":"10\/17\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/18\/11","jsonHitCount":6,"seriesKey":"Website Usage"},{"jsonDate":"10\/19\/11","jsonHitCount":8,"seriesKey":"Website Usage"},{"jsonDate":"10\/20\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/21\/11","jsonHitCount":4,"seriesKey":"Website Usage"},{"jsonDate":"10\/24\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/25\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/27\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/01\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/02\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/03\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/04\/11","jsonHitCount":37,"seriesKey":"Website Usage"},{"jsonDate":"11\/08\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/10\/11","jsonHitCount":39,"seriesKey":"Website Usage"},{"jsonDate":"11\/11\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/14\/11","jsonHitCount":15,"seriesKey":"Website Usage"},{"jsonDate":"11\/15\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/16\/11","jsonHitCount":5,"seriesKey":"Website Usage"},{"jsonDate":"11\/17\/11","jsonHitCount":4,"seriesKey":"Website Usage"},{"jsonDate":"11\/21\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/22\/11","jsonHitCount":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/23\/11","jsonHitCount":11,"seriesKey":"Website Usage"},{"jsonDate":"11\/24\/11","jsonHitCount":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/25\/11","jsonHitCount":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/28\/11","jsonHitCount":10,"seriesKey":"Website Usage"},{"jsonDate":"11\/29\/11","jsonHitCount":3,"seriesKey":"Website Usage"}];
-    var dataArray = data.map(function(object){return object.jsonHitCount;})
-
+	// var data = [{"jsonDate":"09\/22\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"09\/26\/11","ratio":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/27\/11","ratio":9,"seriesKey":"Website Usage"},{"jsonDate":"09\/29\/11","ratio":26,"seriesKey":"Website Usage"},{"jsonDate":"09\/30\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/03\/11","ratio":3,"seriesKey":"Website Usage"},{"jsonDate":"10\/06\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/11\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/12\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/13\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/14\/11","ratio":5,"seriesKey":"Website Usage"},{"jsonDate":"10\/17\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/18\/11","ratio":6,"seriesKey":"Website Usage"},{"jsonDate":"10\/19\/11","ratio":8,"seriesKey":"Website Usage"},{"jsonDate":"10\/20\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"10\/21\/11","ratio":4,"seriesKey":"Website Usage"},{"jsonDate":"10\/24\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/25\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"10\/27\/11","ratio":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/01\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/02\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/03\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/04\/11","ratio":37,"seriesKey":"Website Usage"},{"jsonDate":"11\/08\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/10\/11","ratio":39,"seriesKey":"Website Usage"},{"jsonDate":"11\/11\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/14\/11","ratio":15,"seriesKey":"Website Usage"},{"jsonDate":"11\/15\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/16\/11","ratio":5,"seriesKey":"Website Usage"},{"jsonDate":"11\/17\/11","ratio":4,"seriesKey":"Website Usage"},{"jsonDate":"11\/21\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/22\/11","ratio":3,"seriesKey":"Website Usage"},{"jsonDate":"11\/23\/11","ratio":11,"seriesKey":"Website Usage"},{"jsonDate":"11\/24\/11","ratio":2,"seriesKey":"Website Usage"},{"jsonDate":"11\/25\/11","ratio":1,"seriesKey":"Website Usage"},{"jsonDate":"11\/28\/11","ratio":10,"seriesKey":"Website Usage"},{"jsonDate":"11\/29\/11","ratio":3,"seriesKey":"Website Usage"}];
+	var list= document.getElementsByClassName("data-div");
+	var data = [];
+	for (var i = 0; i < list.length; i++) {
+		let dataObject =  JSON.parse(list[i].getAttribute("data-row"));
+		// dataObject.relevantData = dataObject.completion_value / dataObject.completion_max; 
+	    data.push(  dataObject  ); //second console output
+	}
+    var dataArray = data.map(function(object){return object.ratio;})
 	    // helper function
+	    debugger
     function getDate(d) {
-        return new Date(d.jsonDate);
+        return new Date(d.date);
     }
     
     // get max and min dates - this assumes data is sorted
@@ -573,7 +563,6 @@ function drawThirtyDays(){
 	            .style('opacity', 1)
 	            .style('fill', tempColor)
 	    })
-    debugger
 	//animation 
 	myChart.transition()
 	    .attr('height', function(d) {
@@ -620,4 +609,6 @@ function drawThirtyDays(){
 	        .style({ fill: 'none', stroke: "#000"})
 	    hGuide.selectAll('line')
 	        .style({ stroke: "#000"})
-}	    
+}	 
+
+

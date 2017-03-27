@@ -97,16 +97,11 @@ class User < ApplicationRecord
     (1.month.ago.to_date..Date.today).map{ |date| date }
   end 
 
-# {
-#  jsonDate: "09\/22\/11",
-#  percent: 0.77 
-# }
-# eventually make each bar a link to its respective day
   def last_thirty_due_date_objects 
     last_thirty_due_dates = []
     last_thirty_days_array.each do |x|  
       self.due_dates.each do |y|
-        if x == y.date 
+        if x.strftime("%m/%d/%Y") == y.date.strftime("%m/%d/%Y")
           last_thirty_due_dates << y 
         end
       end
@@ -115,16 +110,18 @@ class User < ApplicationRecord
   end
 
   def last_month_data 
-    last_thirty_due_date_objects.map do |x|
-      {date: x.date.strftime("%m/%d/%Y") }
+    data = last_thirty_due_date_objects.map do |x|
+      {date: x.date.strftime("%m/%d/%Y"), ratio: x.ratio || x.ratio.to_f}#to_f for nils
     end
+    data.each do |y|
+      unless y[:ratio] == 0.0 || y[:ratio] == nil 
+        y[:ratio] = y[:ratio].value
+      end
+    end
+      data
   end
-  # def array_of_ratios
-  #   last_thirty_days_array.map{|date| task_completion_ratio_of_day(date)}
-  # end
 
-  # {"jsonDate":"09\/22\/11","jsonHitCount":2,"seriesKey":"Website Usage"}
-
+  
   def array_of_ratios
     self.due_dates.map do |date|
       if date.ratio 
