@@ -1,32 +1,27 @@
 
 	<div class="row tasks">
-		<% if current_user.tasks %>
-			<% current_user.tasks_due_this_week.each do |task| %>
-				<div id="task-window-<%= task.id %>" class="col-md-4 task-container text-center">
+				<% if current_user.tasks %>
+			<% current_user.tasks.each do |task| %>
+				<div id="task-window-<%= task.id %>" class="col-md-5 task-container text-center">
 				   <div id="task-<%= task.id %>">
 			 		<p><h2><%=task.name %></h2></p>
-					<p>Due Date: <%=task.due_dates.last.date%></p>
-					<p>Description : <%=task.description%></p> 
-					<p>Term : <%=task.term%></p> 
-					<p>Completion Unit : <%=task.completion_unit%></p> 
+					<p class="due-date">Due <%=task.due_dates.last.date.strftime("%B %-d, %Y")%></p>
 					<% if task.completions.any? %>
-						<p>
+						<p class="completion-info">
 						  <% if task.completions.last.completed == 0 %>
-						  Completed: No!
+						   <%= task.units_left_till_complete %> <%= task.completion_unit %> to go.
 						  <% else %>
-						  Completed: Yes! Congrats.
+						  You've completed this task
 						  <% end %>
 						</p>
-						<p>Completion Value(how complete): <%=task.completions.last.completion_value%></p>
-						<p>Completion Max(how much we need to complete): <%=task.completion_max%></p>
-						<p>Completion Unit(how we measure): <%=task.completion_unit%></p>
-						<a id="<%= task.id %>" class="btn-primary complete">U COMPLETE ME</a>
+						<!-- <a id="<%= task.id %>" class="btn-primary complete">U COMPLETE ME</a> -->
 						<!-- slide scale input -->
-						<form method="post" action="/updatecompletion/<%= task.id %>">
+						<a class="show-slide">…</a class="show-slide">
+						<form class="slider" method="post" action="/updatecompletion/<%= task.id %>">
 							<input data="<%=task.completions.last.completion_value%>"  class="slider" name="task[completion_value]" type="range" min="0" max="<%= task.completion_max%>" value="0" step="1"  />
-							<span class="range"><%=task.completions.last.completion_value%></span>
 							<input name="_method" type="hidden" value="put" />
-							<input type="submit" value="submit">
+							<input class="submit-slide" type="submit" value="submit">
+							<span class="range"><%=task.completions.last.completion_value%></span>
 						    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 						</form>
 						<!-- slide scale input above -->

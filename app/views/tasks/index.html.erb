@@ -6,7 +6,7 @@
 			<% current_user.tasks.each do |task| %>
 				<div id="task-window-<%= task.id %>" class="col-md-5 task-container text-center">
 				   <div id="task-<%= task.id %>">
-			 		<p><h2><%=task.name %></h2></p>
+			 		<p><h2 class="<%= task.completions.last.completed=0 ? "done" : "not-done" %>"><%=task.name %></h2></p>
 					<p class="due-date">Due <%=task.due_dates.last.date.strftime("%B %-d, %Y")%></p>
 					<% if task.completions.any? %>
 						<p class="completion-info">
@@ -26,8 +26,7 @@
 							<span class="range"><%=task.completions.last.completion_value%></span>
 						    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 						</form>
-
-						<!-- slide scale input above -->
+					<!-- slide scale input above -->
 					<% else %>
 						<h1>This task has no completion Data.</h1>
 					<% end %>
