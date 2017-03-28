@@ -1,13 +1,21 @@
 <div class="text-center">
 <h1 class="signup">Welcome to Da</h1>
 	<%= form_for(@user) do |f| %>
-		<%= f.label :username  %>
-		<%= f.text_field :username  %>
+		<div class="form-element">
+			<%= f.label :username  %>
+			<%= f.text_field :username  %>
+		</div>
+		<div class="form-element">
 		<%= f.label :email  %>
 		<%= f.text_field :email  %>
+		</div>
+		<div class="form-element">
 		<%= f.label :password %>
 		<%= f.text_field :password %>
+		</div>
+		<div class="form-element">
 		<%= f.submit "join us" %>
+		</div>
 	<% end %>
 
 	<p>Already have an account?<p> <a href="/login">Log in here</a>
