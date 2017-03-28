@@ -1,13 +1,20 @@
 <div class="text-center">
-	<h1>Login</h1>
-
-	<%= form_tag '/login' do %>
-
-	  Email: <%= text_field_tag :email %>
-	  Password: <%= password_field_tag :password %>
-	  <%= submit_tag "Submit" %>
-
-	<% end %>
-	<p>Don't have an account yet?</p><a href="/">Sign Up!</a>
+  <h1 class="logo">Goal Tracker<span class="sub-logo"> develop great habits</span></h1>
+	<h1 class="login">Login</h1>
+	<div class="">
+		<%= form_tag '/login' do %>
+		<div class="form-element login">
+		  Email: <%= text_field_tag :email %>
+		</div>
+		<div class="form-element login">
+		  Password: <%= password_field_tag :password %>
+		</div>
+		<div class="form-element login">
+		  <%= submit_tag "Submit" %>
+		</div>
+		<% end %>
+	</div>
+	<p>Don't have an account yet?</p><a href="/users/new">Sign Up!</a>
 </div>
+
 

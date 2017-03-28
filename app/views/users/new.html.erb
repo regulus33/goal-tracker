@@ -1,22 +1,25 @@
 <div class="text-center">
-<h1 class="signup">Welcome to Da</h1>
-	<%= form_for(@user) do |f| %>
-		<div class="form-element">
-			<%= f.label :username  %>
-			<%= f.text_field :username  %>
-		</div>
-		<div class="form-element">
-		<%= f.label :email  %>
-		<%= f.text_field :email  %>
-		</div>
-		<div class="form-element">
-		<%= f.label :password %>
-		<%= f.text_field :password %>
-		</div>
-		<div class="form-element">
-		<%= f.submit "join us" %>
-		</div>
-	<% end %>
+  <h1 class="logo">Goal Tracker<span class="sub-logo"> develop great habits</span></h1>
+	<h1 class="login">Signup</h1>
+	<div class="">
+		<%= form_for(@user) do |f| %>
+			<div class="form-element">
+				<%= f.label :username  %>
+				<%= f.text_field :username  %>
+			</div>
+			<div class="form-element">
+				<%= f.label :email  %>
+				<%= f.text_field :email  %>
+			</div>
+			<div class="form-element">
+				<%= f.label :password %>
+				<%= f.text_field :password %>
+			</div>
+			<div class="form-element submit">
+				<%= f.submit "join us" %>
+			</div>
+		<% end %>
+	</div>
 
-	<p>Already have an account?<p> <a href="/login">Log in here</a>
+	<p class="account-holder">Already have an account?<p> <a href="/login">Log in here</a>
 </div>

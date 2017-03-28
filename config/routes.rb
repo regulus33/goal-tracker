@@ -1,10 +1,9 @@
 Rails.application.routes.draw do
-	get '/', to: "users#new" 
+	get '/', to: "sessions#new" 
 	resources :users
 	resources :sessions
 	resources :tasks
 	resources :ratios
-	# resources :completions
 	get '/login', to: "sessions#new"
 	post '/login', to: "sessions#create"
 	get '/logout', to: "sessions#destroy"

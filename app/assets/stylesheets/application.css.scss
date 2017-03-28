@@ -134,7 +134,70 @@ h1.signup{
 	letter-spacing: 2px;
 }
 
-div.form-element{
+h1.logo{
+	font-size: 70px;
+	text-transform: capitalize;
+	color: #34a9ed;
+	letter-spacing: 2px;
+}
 
+h1 span.sub-logo{
+	font-family: 'Lato', sans-serif;
+	text-transform: capitalize;
+	font-size: 21px;
+	color: #34a9ed;
+	opacity: 0.8;
+}
+
+h1.login{
+	color: #aaaaaa;
+	font-family: 'Roboto Condensed', sans-serif;
+	font-size: 21px;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+}
+
+label, input {
+    display: inline-block;
+}
+
+label {
+    width: 30%;
+    text-align: right;
+}
+
+label + input {
+    width: 30%;
+    margin: 0 30% 0 4%;
+}
+
+input + input {
+    float: right;
+}
+
+label{
+	color: #aaaaaa;
+	font-family: 'Roboto Condensed', sans-serif;	
+}
+
+div.submit input{
+	border:none;
+	background-color: white;
+	border: .1px solid grey;
+	border-radius: 3px;
+}
+
+p.account-holder{
+	padding-top: 30px;
+	color: #aaaaaa;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+div.form-element.login {
+	color: #aaaaaa;
+	font-family: 'Roboto Condensed', sans-serif;
 }
 
