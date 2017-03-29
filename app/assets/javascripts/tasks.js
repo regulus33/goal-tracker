@@ -609,7 +609,6 @@ function drawThirtyDays(){
 	    .scale(timeScale)
 	    .orient('bottom')
 	    .tickValues(timeScale.domain());
-	    debugger
 	    //this is basically working we just need to specify amount of printed dates
 	    //and make sure data is same length?
 
