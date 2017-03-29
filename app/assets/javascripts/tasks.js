@@ -18,6 +18,8 @@
 	    })
 	     .done(function(response){			
 	        $(".row").remove();
+	        $(".row").remove();
+	        clearDom();
 	        $(".task-render").append(response);
 	        updateSliders();
 	     })
@@ -47,6 +49,7 @@
 	    })
 	     .done(function(response){
 	     	$(".row").remove();
+	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        updateSliders();
 	    })
@@ -60,6 +63,7 @@
 	      method: 'get'
 	    })
 	     .done(function(response){
+	     	$(".row").remove();
 	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        drawD3Pie();
@@ -75,6 +79,7 @@
 	    })
 	     .done(function(response){
 	     	$(".row").remove();
+	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        drawD3Pie();
 	    })
@@ -88,6 +93,7 @@
 	      method: 'get'
 	    })
 	     .done(function(response){
+	     	$(".row").remove();
 	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        drawD3Pie();
@@ -104,6 +110,7 @@
 	     .done(function(response){
 	     	// debugger
 	     	$(".row").remove();
+	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        barchart();
 	    })
@@ -117,6 +124,7 @@
 	      method: 'get'
 	    })
 	     .done(function(response){
+	     	$(".row").remove();
 	     	$(".row").remove();
 	        $(".task-render").append(response);
 	        drawThirtyDays();
@@ -271,6 +279,7 @@ function updateTasks() {
 	        method: 'get'
 	      }).done(function(response){
 	     	$("h1.text-center").text("New Tasks!")
+	     	$(".row").remove();
 	     	$(".row").remove();
 	        $(".task-render").append(response);
 	      })
@@ -517,12 +526,14 @@ function drawThirtyDays(){
 	// newly inserted code for time 
 	var timeScale = d3.time.scale().domain([minDate, maxDate]).range([0, width]);
 	//pop up info 
-	var tooltip = d3.select('body').append('div')
+	tooltip = d3.select('body').append('div')
 	        .style('position', 'absolute')
 	        .style('padding', '0 10px')
 	        .style('background', 'white')
 	        .style('opacity', 0)
-    //the actual graphic %^&^%^&$$%#$%^%^(&^$#%^&*()_*&*^&%^$%#$^&^*&)
+	        .attr("class", "tooltip")
+	
+    //the actual graphic 
    
 	var myChart = d3.select('#chart').append('svg')
 	    .style('background', 'white')
@@ -574,7 +585,7 @@ function drawThirtyDays(){
 	    .delay(function(d, i) {
 	        return i * 20;
 	    })
-	    .duration(1000)
+	    .duration(800)
 	    .ease('elastic')
 	//guide?
 	var vGuideScale = d3.scale.linear()
@@ -609,6 +620,10 @@ function drawThirtyDays(){
 	        .style({ fill: 'none', stroke: "#000"})
 	    hGuide.selectAll('line')
 	        .style({ stroke: "#000"})
-}	 
+}	
+
+function clearDom() {
+	$(".tooltip").remove();
+} 
 
 
