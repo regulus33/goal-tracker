@@ -484,7 +484,6 @@ function drawThirtyDays(){
 	}
     var dataArray = data.map(function(object){return object.ratio;})
 	    // helper function
-	    debugger
     function getDate(d) {
         return new Date(d.date);
     }
@@ -587,9 +586,9 @@ function drawThirtyDays(){
 	    })
 	    .duration(800)
 	    .ease('elastic')
-	//guide?
+	//guide
 	var vGuideScale = d3.scale.linear()
-	    .domain([0, d3.max(dataArray)])
+	    .domain([0, d3.max(dataArray)*100])
 	    .range([height, 0])
 	//the axis needs to know the scale so we can end and begin appropriatetly 
 	var vAxis = d3.svg.axis()
@@ -610,6 +609,7 @@ function drawThirtyDays(){
 	    .scale(timeScale)
 	    .orient('bottom')
 	    .tickValues(timeScale.domain());
+	    debugger
 	    //this is basically working we just need to specify amount of printed dates
 	    //and make sure data is same length?
 
