@@ -127,7 +127,8 @@
 	     	$(".row").remove();
 	     	$(".row").remove();
 	        $(".task-render").append(response);
-	        drawThirtyDays();
+	        // drawThirtyDays();
+	        date();
 	    })
 	  }
 	);
@@ -620,6 +621,107 @@ function drawThirtyDays(){
 	    hGuide.selectAll('line')
 	        .style({ stroke: "#000"})
 }	
+
+function date(){
+	var data = [
+  {
+    "air_produced": 0.660985, 
+    "air_used": 0.342706, 
+    "datestr": "2012-12-01 00:00:00", 
+    "energy_used": 0.106402
+  }, 
+  {
+    "air_produced": 0.824746, 
+    "air_used": 0.400776, 
+    "datestr": "2013-01-01 00:00:00", 
+    "energy_used": 0.250462
+  }, 
+  {
+    "air_produced": 0.181898, 
+    "air_used": 0.003541, 
+    "datestr": "2013-02-01 00:00:00", 
+    "energy_used": 0.000582
+  }, 
+  {
+    "air_produced": 1.096685, 
+    "air_used": 0.97719, 
+    "datestr": "2013-03-01 00:00:00", 
+    "energy_used": 0.923212
+  }, 
+  {
+    "air_produced": 0.283379, 
+    "air_used": 0.241088, 
+    "datestr": "2013-04-01 00:00:00", 
+    "energy_used": 0.23381
+  }
+];
+
+// Margins, width and height. 
+var margin = {top: 20, right: 20, bottom: 30, left: 10},
+    body_width = 500,
+    width = body_width - margin.left - margin.right,
+    height = 200 - margin.top - margin.bottom;
+
+// Scales.
+var x = d3.time.scale().range([width/data.length/2, width-width/data.length/2]);
+var y = d3.scale.linear().range([height, 0]);
+
+// Construct our SVG object.
+var svg = d3.select(".system-efficiency").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// X-axis.
+var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom")
+    .ticks(d3.time.month, 1)
+    .tickFormat(d3.time.format('%b %Y'));
+svg.append("g")
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(xAxis);
+
+// Date parsing.
+var parseDate = d3.time.format("%Y-%m-%d %H:%M:%S");
+data.forEach(function(d) {
+  d.date = parseDate.parse(d.datestr);
+});
+
+// Set scale domains. 
+x.domain(d3.extent(data, function(d) { return d.date; }));
+y.domain([0, d3.max(data, function(d) { return d.air_used; })]);
+
+// Call x-axis. 
+d3.select(".x.axis")
+    .transition().duration(1000)
+    .call(xAxis);
+
+// Draw bars. 
+var bars = svg.selectAll(".air_used")
+        .data(data, function(d) { return d.datestr; });
+
+bars.exit().remove();
+    
+bars.transition().duration(1000)
+    .attr("x", function(d) { return x(d.date) - width/data.length/2; })
+    .attr("width", width / data.length)
+    .attr("y", function(d) { return y(d.air_used); })
+    .attr("height", function(d) { return height - y(d.air_used);});
+    
+bars.enter().append("rect")
+    .attr("class", "air_used")
+    .attr("width", width / data.length)
+    .attr("x", function(d) { return x(d.date) - (width/data.length)/2; })
+    .attr("y", height)
+    .attr("height", 0)
+    .transition().duration(1000)
+    .attr("y", function(d) { return y(d.air_used); })
+    .attr("height", function(d) { return height - y(d.air_used);});
+
+}
 
 function clearDom() {
 	$(".tooltip").remove();
