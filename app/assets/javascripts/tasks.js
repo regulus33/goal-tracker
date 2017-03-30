@@ -545,7 +545,7 @@ function drawThirtyDays(){
 	        .style('fill', function(d,i) {
 	            return colors(i);
 	        })
-	        .attr('width', xScale.rangeBand())
+	        .attr('width', (width/data.length) )
 	        .attr('x', function(d,i) {
 	            return xScale(i);
 	        })
