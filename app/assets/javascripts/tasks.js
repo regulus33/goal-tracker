@@ -40,6 +40,12 @@
 	    })
 	  }
 	);
+	//done animation NEWEST
+	$(document).on("click", "input.submit-slide", function(event){
+		console.log($(this).parents().eq(1))
+		// $("h1").css({"text-decoration":"line-through"})
+	  }
+	);
     //sort by completed
 	$(document).on("click", "a#completed-all", function(event){
 		event.preventDefault();
