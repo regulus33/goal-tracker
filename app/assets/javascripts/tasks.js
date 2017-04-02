@@ -133,8 +133,8 @@
 	     	$(".row").remove();
 	     	$(".row").remove();
 	        $(".task-render").append(response);
-	        // drawThirtyDays();
-	        date();
+	        drawThirtyDays();
+	        // date();
 	    })
 	  }
 	);
@@ -615,6 +615,8 @@ function drawThirtyDays(){
 	var hAxis = d3.svg.axis()
 	    .scale(timeScale)
 	    .orient('bottom')
+	    // .ticks(d3.time.month, 1)
+        .tickFormat(d3.time.format('%x'))
 	    .tickValues(timeScale.domain());
 	    //this is basically working we just need to specify amount of printed dates
 	    //and make sure data is same length?
@@ -683,6 +685,8 @@ var svg = d3.select(".system-efficiency").append("svg")
 var xAxis = d3.svg.axis()
     .scale(x)
     .orient("bottom")
+    // COULD BE IMPORTANT///////////////////////////////////////////////
+    ///////////////////////////////////////////////////////////////////
     .ticks(d3.time.month, 1)
     .tickFormat(d3.time.format('%b %Y'));
 svg.append("g")
