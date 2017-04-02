@@ -393,7 +393,7 @@ function graphic(divIdNums){
 function barchart(){
 	var dataObjects = []; //we will iterate through the dom and add JSON objects to this array
 
-	var list= document.getElementsByClassName("data-div");
+	var list = document.getElementsByClassName("data-div");
 	for (var i = 0; i < list.length; i++) {
 		let taskObject =  JSON.parse(list[i].getAttribute("data-row"));
 		taskObject.relevantData = taskObject.completion_value / taskObject.completion_max; 
@@ -401,10 +401,10 @@ function barchart(){
 	}
 
 	var height = 400,
-	    width = 600,
+	    width = 700,
 	    barWidth = (width/dataObjects.length)*.5, //space bars out 
 	    barOffset = 5;
-
+	debugger
 	var tempColor;
 	var bardata = dataObjects.map(function(t){return t.relevantData});
 	var colors = d3.scale.linear()
@@ -512,7 +512,7 @@ function drawThirtyDays(){
 	//specify dimensions of graphic 
 	var height = 400 - margin.top - margin.bottom,
 	    width = 600 - margin.left - margin.right,
-	    barWidth = 50,
+	    barWidth = (width/bardata.length)*.5, //this is where the bar size is defined
 	    barOffset = 5;
 
 	//declaring a var before it is fiven a value
@@ -540,7 +540,7 @@ function drawThirtyDays(){
 	        .attr("class", "tooltip")
 	
     //the actual graphic 
-   
+  	//adding attributes for svg elements  
 	var myChart = d3.select('#chart').append('svg')
 	    .style('background', 'white')
 	    .attr('width', width + margin.left + margin.right)
@@ -552,7 +552,7 @@ function drawThirtyDays(){
 	        .style('fill', function(d,i) {
 	            return colors(i);
 	        })
-	        .attr('width', (width/data.length) )
+	        .attr('width', barWidth )
 	        .attr('x', function(d,i) {
 	            return xScale(i);
 	        })
