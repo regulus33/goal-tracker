@@ -1,16 +1,32 @@
+<style>
+	input {
+		 margin: 5px;     
+		margin-left: 10px;
+		width: 300px;
+	}
+	input[type="submit"] {
+	    margin: 19px;
+	}
+</style>
 <div class="text-center">
-  <h1 class="logo">Goal Tracker<span class="sub-logo"> develop great habits</span></h1>
+	<h1 class="logo">Goal Tracker<span class="sub-logo"> develop great habits</span></h1>
 	<h1 class="login">Login</h1>
-	<div class="">
+	<div class="login-container">
 		<%= form_tag '/login' do %>
-		<div class="form-element login">
-		  Email: <%= text_field_tag :email %>
+		<div class="form-element login row">
+			<div class="col-md-12">
+			<p class="label-name">Email:</p> <%= text_field_tag :email %>
+			</div>
 		</div>
-		<div class="form-element login">
-		  Password: <%= password_field_tag :password %>
+		<div class="form-element login row">
+			<div class="col-md-12">
+				<p class="label-name">Password:</p> <%= password_field_tag :password %>
+			</div>
 		</div>
-		<div class="form-element login">
-		  <%= submit_tag "Submit" %>
+		<div class="form-element login row">
+			<div class="col-md-12">
+				<%= submit_tag "Submit" %>
+			</div>
 		</div>
 		<% end %>
 	</div>

@@ -404,7 +404,7 @@ function barchart(){
 	    width = 700,
 	    barWidth = (width/dataObjects.length)*.5, //space bars out 
 	    barOffset = 5;
-	debugger
+
 	var tempColor;
 	var bardata = dataObjects.map(function(t){return t.relevantData});
 	var colors = d3.scale.linear()
@@ -514,7 +514,7 @@ function drawThirtyDays(){
 	    width = 600 - margin.left - margin.right,
 	    barWidth = (width/bardata.length)*.5, //this is where the bar size is defined
 	    barOffset = 5;
-
+	// debugger
 	//declaring a var before it is fiven a value
 	var tempColor;
 	//setting up the color function 
@@ -563,7 +563,7 @@ function drawThirtyDays(){
 
 	        tooltip.transition()
 	            .style('opacity', .9)
-
+	            debugger
 	        tooltip.html(d)
 	            .style('left', (d3.event.pageX - 35) + 'px')
 	            .style('top',  (d3.event.pageY - 30) + 'px')
