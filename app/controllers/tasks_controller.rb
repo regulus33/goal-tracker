@@ -19,6 +19,11 @@ class TasksController < ApplicationController
 	    @task.completions.build 
 	end 
 
+	def edit
+		@task = Task.find_by(id:complete_params[:id])
+	end 
+
+
 	def create 
 		task = Task.new(
 		 name: task_params[:name],
@@ -43,9 +48,6 @@ class TasksController < ApplicationController
 		task.save!
 		task.clean_self
 		redirect_to '/tasks'
-	end 
-
-	def edit 
 	end 
 
 	def update

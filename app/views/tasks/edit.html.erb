@@ -1,0 +1,50 @@
+<div class="jumbotron">
+  <div class="form-group text-center row">
+  <h1>New Task</h1>
+    <%= form_for @task do |task_form| %>
+      <div class="stack form-group">
+        <%= task_form.label :task_name %>
+        <%= task_form.text_field :name, class: "col-2 col-form-label" %>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :task_description %>
+        <%= task_form.text_area :description, class: "col-2 col-form-label" %>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :How_will_we_measure_your_tasks? %>
+        <%= task_form.select :completion_unit, ['none','minutes','hours','miles', 'reps'], class: "col-2 col-form-label"%>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :what_is_your_goal_for_these_units? %>
+        <%= task_form.number_field :completion_max, in: 1.0..10000.0 %>
+      </div>
+      <div class="stack form-group">
+        <%= task_form.label :How_often_should_this_task_recur? %>
+        <%= task_form.select :term, ['hourly','daily', 'weekly', 'monthly', 'never'], class: "col-2 col-form-label"%>
+      </div>
+      <% @task.due_dates.each do |due_date| %>
+        <div id="due-date" class="stack form-group">
+        <%= task_form.fields_for due_date, index: due_date.id do |due_date_form|%>
+          <%= due_date_form.label :date %>
+          <%= due_date_form.date_field :date, class: "col-2 col-form-label" %>
+          <% end %>
+        <% end %>
+      </div>
+      <% @task.completions.each do |completion| %>
+        <%= task_form.fields_for completion, index: completion.id do |completion_form|%>
+        <div class="stack form-group">
+          <%= completion_form.label :completion_value %>
+          <%= completion_form.number_field :completion_value, in: 1.0..10000.0 %>
+        </div>
+        <div class="stack form-group">
+          <%= completion_form.label :completed %>
+          <%= completion_form.select :completed, ['false', 'true'], class: "col-2 col-form-label"%>
+        </div>
+        <% end %>
+      <% end %>
+      <div class="stack form-group">
+        <%= task_form.submit class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

@@ -20,6 +20,7 @@
 							<input data="<%=task.completions.last.completion_value%>"  class="slider" name="task[completion_value]" type="range" min="0" max="<%= task.completion_max%>" value="0" step="1"  />
 							<input name="_method" type="hidden" value="put" />
 							<input class="submit-slide" type="submit" value="submit">
+							<a class="submit-slide" href="/edit/<%=task.id%>">Edit</a>
 							<span class="range"><%=task.completions.last.completion_value%></span>
 						    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
 						</form>

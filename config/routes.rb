@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 	post '/login', to: "sessions#create"
 	get '/logout', to: "sessions#destroy"
 	get '/tasks/today', to: "tasks#today"
+    get '/edit/:id', to: "tasks#edit"
 	get '/sortday', to: "tasks#today"
 	get '/sortweek', to: "tasks#this_week"
 	put '/complete/:id', to: "tasks#complete" #edit request for tasks to be completed, all tasks are initiated with completions	
